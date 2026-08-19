@@ -2,11 +2,11 @@ name: Generar Cuento Diario
 
 on:
   schedule:
-    - cron: '0 12 * * *' # Ajusta aquí el horario de ejecución si aplica
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:
-  # TAREA 1: Genera el cuento, hace commit y sube el código para que Astro lo compile
+  # TAREA 1: Genera el cuento y guarda el .md en GitHub
   generar-y-desplegar:
     runs-on: ubuntu-latest
     steps:
@@ -20,14 +20,13 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install requests google-generativeai pillow
+          pip install requests google-genai python-slugify
 
-      - name: Generar cuento e imágenes
+      - name: Generar cuento
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # Corre el script en modo solo generación (sin enviar avisos todavía)
-          python generar_cuento.py --solo-generar
+          python scripts/generar_cuento.py --solo-generar
 
       - name: Guardar cambios en GitHub
         run: |
@@ -37,9 +36,9 @@ jobs:
           git commit -m "feat: cuento diario publicado" || exit 0
           git push origin main
 
-  # TAREA 2: Se ejecuta SOLO cuando la Tarea 1 termine y el sitio web esté publicado
+  # TAREA 2: Espera al despliegue de Astro y luego publica en Facebook/Telegram
   notificar-redes:
-    needs: generar-y-desplegar # <-- Espera obligatoria
+    needs: generar-y-desplegar
     runs-on: ubuntu-latest
     steps:
       - name: Descargar repositorio
@@ -52,17 +51,16 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install requests
+          pip install requests python-slugify google-genai
 
-      - name: Esperar 90 segundos para asegurar despliegue de GitHub Pages
-        run: sleep 90
+      - name: Esperar 120 segundos para asegurar despliegue de GitHub Pages
+        run: sleep 120
 
       - name: Publicar en Facebook y Telegram
         env:
-          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
-          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          # Corre el paso para notificar a ambas redes
-          python generar_cuento.py --solo-notificar
+          python scripts/generar_cuento.py --solo-notificar
