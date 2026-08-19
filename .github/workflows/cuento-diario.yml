@@ -47,7 +47,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Instalar dependencias de Astro
         run: npm install
@@ -63,6 +63,9 @@ jobs:
   desplegar-pages:
     needs: generar-y-publicar
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Publicar en GitHub Pages
         id: deployment
