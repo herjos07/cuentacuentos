@@ -2,6 +2,7 @@ import os
 import re
 import random
 import requests
+from datetime import datetime
 from slugify import slugify
 from google import genai
 
@@ -54,7 +55,7 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 prompt = f"""
 Escribe un cuento corto e inspirador.
 
-Instrucciones strictly:
+Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
@@ -71,9 +72,8 @@ CUENTO:
 
 print("🧠 Generando cuento con Gemini...")
 
-# Usamos el identificador estándar recomendado por el SDK
 response = client.models.generate_content(
-    model='gemini-2.5-flash',
+    model='gemini-3.6-flash',
     contents=prompt,
 )
 
@@ -93,7 +93,6 @@ resumen = resumen_match.group(1).strip() if resumen_match else "Una historia ori
 contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
 
 # Generar fecha y slug
-from datetime import datetime
 fecha_hoy = datetime.now().strftime("%Y-%m-%d")
 slug_titulo = slugify(titulo)
 slug_cuento = f"{fecha_hoy}-{slug_titulo}"
@@ -124,28 +123,28 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (URL ÚNICA Y LIMPIA)
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (HTML LIMPIO Y URL ÚNICA)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # Sanitización de la URL para evitar que se rompa con saltos de línea
+    # Limpieza estricta de espacios y diagonales sobrantes
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
     
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
     
-    # Formato Markdown para que aparezca como hipervínculo limpio
+    # Formato HTML para evitar rotura de enlaces o parentesis mal cerrados
     mensaje_telegram = (
-        f"📖 *¡Nuevo cuento diario!*\n\n"
-        f"📌 *{titulo}*\n\n"
+        f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
+        f"📌 <b>{titulo}</b>\n\n"
         f"📝 {resumen}\n\n"
-        f"🔗 [Lee el cuento completo aquí]({url_cuento})"
+        f'🔗 <a href="{url_cuento}">Lee el cuento completo aquí</a>'
     )
     
     url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": mensaje_telegram,
-        "parse_mode": "Markdown",
+        "parse_mode": "HTML",
         "disable_web_page_preview": False
     }
     
