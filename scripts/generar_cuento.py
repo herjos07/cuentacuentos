@@ -142,14 +142,16 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (URL VISIBLE)
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (CON PAUSA PARA PERMITIR DESPLIEGUE)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
     
-    # Construcción explícita de la URL
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
+    
+    print("⏳ Esperando 90 segundos para permitir que el sitio se publique en el servidor...")
+    time.sleep(90)
     
     mensaje_telegram = (
         f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
@@ -174,6 +176,5 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     try:
         res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
         print(f"Status Code Telegram: {res_telegram.status_code}")
-        print(f"Respuesta Telegram: {res_telegram.text}")
     except Exception as e:
         print(f"❌ Error al conectar con Telegram: {e}")
