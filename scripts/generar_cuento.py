@@ -79,7 +79,7 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
+  modelos = ['gemini-2.5-flash', 'gemini-2.5-flash-lite']
     texto_generado = None
 
     for modelo in modelos:
@@ -99,9 +99,10 @@ CUENTO:
     if not texto_generado:
         raise RuntimeError("❌ No se pudo obtener respuesta de Gemini.")
 
-    titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado)
-    resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado)
-    cuento_match = re.search(r"CUENTO:\s*([\s\S]*)", texto_generado)
+    # Extracción con limpieza para no perder el RESUMEN
+    titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado, re.IGNORECASE)
+    resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado, re.IGNORECASE)
+    cuento_match = re.search(r"CUENTO:\s*([\s\S]*)", texto_generado, re.IGNORECASE)
 
     titulo = titulo_match.group(1).strip() if titulo_match else "Cuento del Día"
     resumen = resumen_match.group(1).strip() if resumen_match else "Una historia original para disfrutar hoy."
