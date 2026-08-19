@@ -1,7 +1,8 @@
 ---
 title: "Las linternas de Niebla Alta"
-description: "En un tranquilo pueblo, misteriosas linternas de papel aparecen en las puertas de los vecinos revelando sus virtudes ocultas. La búsqueda del autor de estos regalos cambiará para siempre la forma en que toda la comunidad se contempla."
+description: "..."
 date: "2026-08-19"
+category: "realismo mágico"
 ---
 
 En la pequeña villa de Niebla Alta, los amaneceres traían consigo un misterio que transformaba la mirada de sus habitantes. Cada mañana, una linterna de papel plegado aparecía en el umbral de alguna vivienda. No era una luz común; dentro albergaba una ilustración diminuta que retrataba el talento más discreto o la virtud más silenciosa de quien habitaba esa casa.
