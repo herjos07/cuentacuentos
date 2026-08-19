@@ -178,3 +178,36 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         print(f"Status Code Telegram: {res_telegram.status_code}")
     except Exception as e:
         print(f"❌ Error al conectar con Telegram: {e}")
+
+        # ---------------------------------------------------------------------------
+# PUBLICACIÓN EN FACEBOOK
+# ---------------------------------------------------------------------------
+FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
+FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
+
+if FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN:
+    url_fb = f"https://graph.facebook.com/v22.0/{FACEBOOK_PAGE_ID}/feed"
+    
+    mensaje_facebook = (
+        f"📖 ¡Nuevo cuento disponible hoy!\n\n"
+        f"✨ {titulo}\n\n"
+        f"{resumen}\n\n"
+        f"Lee la historia completa en nuestro sitio web 👇\n"
+        f"{url_cuento}"
+    )
+    
+    payload_fb = {
+        "message": mensaje_facebook,
+        "link": url_cuento,
+        "access_token": FACEBOOK_PAGE_ACCESS_TOKEN
+    }
+    
+    print("--- ENVIANDO A FACEBOOK ---")
+    try:
+        res_fb = requests.post(url_fb, data=payload_fb, timeout=15)
+        if res_fb.status_code == 200:
+            print("✅ Publicado con éxito en Facebook.")
+        else:
+            print(f"⚠️ Error al publicar en Facebook ({res_fb.status_code}): {res_fb.text}")
+    except Exception as e:
+        print(f"❌ Error al conectar con la API de Facebook: {e}")
