@@ -79,7 +79,7 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-    modelos = ['gemini-2.5-flash', 'gemini-1.5-flash']
+    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
     texto_generado = None
 
     for modelo in modelos:
