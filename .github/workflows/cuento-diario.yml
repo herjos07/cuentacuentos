@@ -1,34 +1,4 @@
-name: Publicar Cuento Diario
-
-on:
-  schedule:
-    - cron: '0 6 * * *'
-  workflow_dispatch:
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-jobs:
-  generar-y-publicar:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Instalar dependencias de Python
-        run: |
-          python -m pip install --upgrade pip
-          pip install google-genai python-slugify requests
-
-      - name: Generar Cuento
+- name: Generar Cuento
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -37,6 +7,17 @@ jobs:
         run: |
           python scripts/generar_cuento.py
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias de Astro
+        run: npm ci || npm install
+
+      - name: Compilar sitio web con Astro
+        run: npm run build
+
       - name: Guardar nuevo cuento en Git
         run: |
           git config --global user.name 'Bot Cuentero'
@@ -44,29 +25,7 @@ jobs:
           git add src/content/cuentos/ || true
           git diff --quiet && git diff --staged --quiet || (git commit -m "feat: cuento diario [skip ci]" && git push)
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: Instalar dependencias de Astro
-        run: npm install
-
-      - name: Compilar sitio web con Astro
-        run: npm run build
-
       - name: Subir artefacto de GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-
-  desplegar-pages:
-    needs: generar-y-publicar
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publicar en GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
