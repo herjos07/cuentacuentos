@@ -1,146 +1,150 @@
 import os
 import re
-import json
-import time
+import random
 import requests
-from datetime import datetime
 from slugify import slugify
 from google import genai
 from google.genai import types
 
 # ---------------------------------------------------------------------------
-# 1. CONFIGURACIÓN Y CREDENCIALES
+# 1. CONFIGURACIÓN Y VARIABLES DE ENTORNO
 # ---------------------------------------------------------------------------
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
-SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://herjos07.github.io/cuentacuentos").rstrip("/")
+SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://herjos.com/cuentacuentos")
 
 if not GEMINI_API_KEY:
-    raise ValueError("❌ No se encontró GEMINI_API_KEY en los Secrets de GitHub.")
+    raise ValueError("❌ Error: La variable GEMINI_API_KEY no está configurada.")
 
+# ---------------------------------------------------------------------------
+# 2. VARIADORES DE CONTENIDO (Para evitar repetición de temas)
+# ---------------------------------------------------------------------------
+TEMAS = [
+    "un viaje de exploración o descubrimiento de un lugar desconocido",
+    "un misterio ligero en una ciudad pequeña",
+    "una invención o descubrimiento culinario/artesanal peculiar",
+    "la conexión entre una persona y un animal o entorno natural",
+    "un desafío personal, la superación de un miedo o una decisión importante",
+    "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
+    "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
+    "una tradición antigua transmitida a una nueva generación",
+    "un viaje en carretera que cambia los planes de los pasajeros"
+]
+
+GENEROS = [
+    "fantasía suave", 
+    "misterio ligero", 
+    "realismo mágico", 
+    "aventura cotidiana", 
+    "ciencia ficción cercana", 
+    "cuento reflexivo/humano"
+]
+
+tema_hoy = random.choice(TEMAS)
+genero_hoy = random.choice(GENEROS)
+
+print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
+print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
+
+# ---------------------------------------------------------------------------
+# 3. LLAMADA A LA API DE GEMINI
+# ---------------------------------------------------------------------------
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# ---------------------------------------------------------------------------
-# 2. PROMPT Y GENERACIÓN CON GEMINI
-# ---------------------------------------------------------------------------
-prompt = """
-Genera un cuento corto original, reflexivo e imaginativo en español.
-Devuelve la respuesta ÚNICAMENTE en formato JSON válido con la siguiente estructura:
-{
-  "titulo": "Título breve y atractivo",
-  "resumen": "Resumen de una sola frase para la vista previa.",
-  "cuento": "El texto completo del cuento aquí, dividido en varios párrafos."
-}
+prompt = f"""
+Escribe un cuento corto e inspirador.
+
+Instrucciones estrictas:
+- Tema obligatorio: {tema_hoy}.
+- Género: {genero_hoy}.
+- RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
+- Extensión del cuento: entre 350 y 500 palabras.
+- Idioma: Español.
+
+Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
+
+TITULO: [Escribe aquí un título atractivo sin comillas]
+RESUMEN: [Escribe un breve resumen de máximo 2 oraciones para redes sociales]
+CUENTO:
+[Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-def generar_con_reintento():
-    # Modelos recomendados y activos según la API
-    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
-    
-    for modelo in modelos:
-        print(f"🤖 Intentando generar cuento con el modelo: {modelo}...")
-        for intento in range(3):
-            try:
-                response = client.models.generate_content(
-                    model=modelo,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        response_mime_type='application/json'
-                    )
-                )
-                if response.text:
-                    print(f"✅ Cuento generado con éxito usando {modelo}.")
-                    return response.text
-            except Exception as e:
-                tiempo_espera = (intento + 1) * 5
-                print(f"⚠️ Error con {modelo} (intento {intento + 1}): {e}")
-                print(f"Reintentando en {tiempo_espera} segundos...")
-                time.sleep(tiempo_espera)
-                
-    raise Exception("❌ No se pudo generar el cuento tras reintentar con múltiples modelos.")
+print("🧠 Generando cuento con Gemini...")
+response = client.models.generate_content(
+    model='gemini-2.5-flash',
+    contents=prompt,
+)
+
+texto_generado = response.text
+print("--- RESPUESTA GENERADA ---")
+print(texto_generado[:200] + "...")
 
 # ---------------------------------------------------------------------------
-# 3. PROCESAMIENTO DE LA RESPUESTA
+# 4. PROCESAMIENTO DEL TEXTO Y EXTRACCIÓN DE DATOS
 # ---------------------------------------------------------------------------
-raw_json = generar_con_reintento()
+titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado)
+resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado)
+cuento_match = re.search(r"CUENTO:\s*([\s\S]*)", texto_generado)
 
-try:
-    datos_cuento = json.loads(raw_json)
-    titulo = datos_cuento.get("titulo", "Cuento Sin Título")
-    resumen = datos_cuento.get("resumen", "Un relato generado hoy.")
-    cuento_texto = datos_cuento.get("cuento", "")
-except Exception as e:
-    print(f"⚠️ Falló el parseo estricto de JSON: {e}. Limpiando texto...")
-    match = re.search(r'\{.*\}', raw_json, re.DOTALL)
-    if match:
-        datos_cuento = json.loads(match.group(0))
-        titulo = datos_cuento.get("titulo", "Cuento Sin Título")
-        resumen = datos_cuento.get("resumen", "Un relato generado hoy.")
-        cuento_texto = datos_cuento.get("cuento", "")
-    else:
-        raise Exception("No se pudo extraer el JSON de la respuesta.")
+titulo = titulo_match.group(1).strip() if titulo_match else "Cuento del Día"
+resumen = resumen_match.group(1).strip() if resumen_match else "Una historia original para disfrutar hoy."
+contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
 
+# Generar fecha y slug
+from datetime import datetime
 fecha_hoy = datetime.now().strftime("%Y-%m-%d")
 slug_titulo = slugify(titulo)
 slug_cuento = f"{fecha_hoy}-{slug_titulo}"
 
 # ---------------------------------------------------------------------------
-# 4. GUARDAR ARCHIVO PARA ASTRO
+# 5. GUARDAR ARCHIVO MARKDOWN PARA ASTRO
 # ---------------------------------------------------------------------------
-directorio_destino = "src/content/cuentos"
-os.makedirs(directorio_destino, exist_ok=True)
+output_dir = "src/content/cuentos"
+os.makedirs(output_dir, exist_ok=True)
+file_path = os.path.join(output_dir, f"{slug_cuento}.md")
 
-ruta_archivo = os.path.join(directorio_destino, f"{slug_cuento}.md")
+# Limpiar comillas del título para evitar errores de YAML Frontmatter
+titulo_clean = titulo.replace('"', '\\"')
+resumen_clean = resumen.replace('"', '\\"')
 
-# Ajustado para cumplir con el schema de Astro (date y category obligatorios)
-contenido_markdown = f"""---
-title: "{titulo}"
-date: {fecha_hoy}
-pubDate: {fecha_hoy}
-description: "{resumen}"
-category: "Ficción"
+markdown_content = f"""---
+title: "{titulo_clean}"
+description: "{resumen_clean}"
+date: "{fecha_hoy}"
 ---
 
-{cuento_texto}
+{contenido_cuento}
 """
 
-print("--- DEBUG DE ARCHIVO ---")
-print(f"💾 Guardando archivo en: {ruta_archivo}")
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(markdown_content)
 
-with open(ruta_archivo, "w", encoding="utf-8") as f:
-    f.write(contenido_markdown)
-
-print("✅ Archivo guardado correctamente en disco.")
+print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 5. ENVIAR NOTIFICACIÓN A TELEGRAM
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (UNA SOLA URL)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # URL única y directa al cuento de hoy
+    # URL única y directa al cuento
     url_cuento = f"{SITE_BASE_URL.rstrip('/')}/cuentos/{slug_cuento}"
     
-    # Mensaje limpio con UNA SOLA URL al final
-    mensaje = (
+    mensaje_telegram = (
         f"📖 ¡Nuevo cuento diario!\n\n"
         f"📌 {titulo}\n\n"
         f"📝 {resumen}\n\n"
         f"🔗 Léelo aquí:\n{url_cuento}"
     )
     
-    url_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
-        "text": mensaje
+        "text": mensaje_telegram
     }
     
-    print("--- DEBUG DE TELEGRAM ---")
-    print(f"Enviando mensaje a chat_id: {TELEGRAM_CHAT_ID}...")
+    print("--- ENVIANDO A TELEGRAM ---")
     try:
-        res_telegram = requests.post(url_telegram, json=payload, timeout=10)
+        res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
         print(f"Status Code Telegram: {res_telegram.status_code}")
-        print(f"Respuesta de Telegram: {res_telegram.text}")
     except Exception as e:
         print(f"❌ Error al conectar con la API de Telegram: {e}")
-else:
-    print("⚠️ No se configuraron TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID. Se omite la notificación.")
