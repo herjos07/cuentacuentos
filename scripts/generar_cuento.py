@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 import requests
 
-# 1. Obtener las credenciales secretas de GitHub
+# 1. Obtener credenciales de GitHub Secrets
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
@@ -14,7 +14,7 @@ SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://tusitio.com/cuentos")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 2. Instrucciones para Gemini
+# 2. Prompt estructurado para la historia
 prompt = """
 Actúa como un prolífico escritor de cuentos cortos en español. 
 Genera un cuento corto original e inspirador ambientado en el folklore, misterio o la cotidianeidad de México.
@@ -50,9 +50,9 @@ def enviar_telegram(titulo, resumen, url):
     print("Respuesta de Telegram:", response.json())
 
 def main():
-    # Pedir cuento a Gemini
+    # Pedir cuento a Gemini usando un modelo estable de Flash
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-1.5-flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json"
@@ -66,7 +66,7 @@ def main():
     nombre_archivo = f"{fecha_hoy}-{slug}.md"
     url_cuento = f"{SITE_BASE_URL}/{fecha_hoy}-{slug}"
 
-    # Contenido en formato Markdown
+    # Formatear el contenido Markdown
     contenido_file = f"""---
 title: "{data['titulo']}"
 date: {fecha_hoy}
@@ -87,7 +87,7 @@ slug: "{fecha_hoy}-{slug}"
 
     print(f"✅ Cuento guardado con éxito en: {filepath}")
 
-    # Enviar la notificación a Telegram
+    # Enviar a Telegram
     enviar_telegram(data["titulo"], data["resumen"], url_cuento)
 
 if __name__ == "__main__":
