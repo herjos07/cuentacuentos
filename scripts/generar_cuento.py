@@ -2,18 +2,19 @@ import os
 import json
 import datetime
 from slugify import slugify
-import google.generativeai as genai
+from google import genai
 import requests
 
-# 1. Configurar credenciales
+# 1. Obtener credenciales de GitHub Secrets
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://tusitio.com/cuentos")
 
-genai.configure(api_key=GEMINI_API_KEY)
+# Inicializar cliente oficial
+client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 2. Prompt estructurado para la historia
+# 2. Prompt
 prompt = """
 Actúa como un prolífico escritor de cuentos cortos en español. 
 Genera un cuento corto original e inspirador ambientado en el folklore, misterio o la cotidianeidad de México.
@@ -49,22 +50,29 @@ def enviar_telegram(titulo, resumen, url):
     print("Respuesta de Telegram:", response.json())
 
 def main():
-    # Usar el modelo estable gemini-1.5-flash
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    
-    response = model.generate_content(
-        prompt,
-        generation_config={"response_mime_type": "application/json"}
+    # Usamos gemini-2.5-flash con la SDK oficial google-genai
+    response = client.models.generate_content(
+        model='gemini-2.5-flash',
+        contents=prompt,
+        config={
+            'response_mime_type': 'application/json'
+        }
     )
 
-    data = json.loads(response.text)
+    # Limpiar posibles bloques markdown si los incluye
+    texto_respuesta = response.text.strip()
+    if texto_respuesta.startswith("```json"):
+        texto_respuesta = texto_respuesta[7:]
+    if texto_respuesta.endswith("```"):
+        texto_respuesta = texto_respuesta[:-3]
+
+    data = json.loads(texto_respuesta)
     
     fecha_hoy = datetime.date.today().strftime("%Y-%m-%d")
     slug = slugify(data["titulo"])
     nombre_archivo = f"{fecha_hoy}-{slug}.md"
     url_cuento = f"{SITE_BASE_URL}/{fecha_hoy}-{slug}"
 
-    # Formatear el contenido Markdown
     contenido_file = f"""---
 title: "{data['titulo']}"
 date: {fecha_hoy}
@@ -76,7 +84,6 @@ slug: "{fecha_hoy}-{slug}"
 {data['contenido_markdown']}
 """
 
-    # Guardar en la carpeta content/cuentos/
     os.makedirs("content/cuentos", exist_ok=True)
     filepath = os.path.join("content/cuentos", nombre_archivo)
     
@@ -85,7 +92,6 @@ slug: "{fecha_hoy}-{slug}"
 
     print(f"✅ Cuento guardado con éxito en: {filepath}")
 
-    # Enviar a Telegram
     enviar_telegram(data["titulo"], data["resumen"], url_cuento)
 
 if __name__ == "__main__":
