@@ -149,9 +149,16 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
+
+# Esperar a que GitHub Pages compile y despliegue el cuento antes de publicar en FB
+print("Esperando 180 segundos a que la página esté en vivo...")
+time.sleep(180)
+
 # ---------------------------------------------------------------------------
 # 6. ENVIAR NOTIFICACIÓN A TELEGRAM (CON PAUSA PARA PERMITIR DESPLIEGUE)
 # ---------------------------------------------------------------------------
+
+
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
@@ -187,7 +194,7 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     except Exception as e:
         print(f"❌ Error al conectar con Telegram: {e}")
 
-        # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # PUBLICACIÓN EN FACEBOOK
 # ---------------------------------------------------------------------------
 FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
