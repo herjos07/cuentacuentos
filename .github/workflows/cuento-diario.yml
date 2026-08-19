@@ -2,8 +2,8 @@ name: Publicar Cuento Diario
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 15:30 UTC (9:30 AM hora CDMX)
-    - cron: '30 15 * * *'
+    # Se ejecuta a las 15:37 UTC (9:37 AM hora CDMX)
+    - cron: '37 15 * * *'
   workflow_dispatch:
 
 jobs:
