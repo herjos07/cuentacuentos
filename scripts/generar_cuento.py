@@ -87,7 +87,7 @@ def main():
     
     # Limpia la URL base quitando slashes al final si existen
     base_clean = SITE_BASE_URL.rstrip("/")
-    url_cuento = f"{base_clean}/{fecha_hoy}-{slug}"
+    url_cuento = f"{base_clean}/cuentos/{fecha_hoy}-{slug}"
 
     contenido_file = f"""---
 title: "{data['titulo']}"
@@ -100,8 +100,8 @@ slug: "{fecha_hoy}-{slug}"
 {data['contenido_markdown']}
 """
 
-    os.makedirs("content/cuentos", exist_ok=True)
-    filepath = os.path.join("content/cuentos", nombre_archivo)
+    os.makedirs("src/content/cuentos", exist_ok=True)
+    filepath = os.path.join("src/content/cuentos", nombre_archivo)
     
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(contenido_file)
