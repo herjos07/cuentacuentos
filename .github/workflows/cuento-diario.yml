@@ -2,15 +2,18 @@ name: Publicar Cuento Diario
 
 on:
   schedule:
-    # Se ejecuta todos los días a las 13:00 UTC (7:00 AM hora del Centro de México)
-    - cron: '0 13 * * *'
-  workflow_dispatch: # Permite ejecutarlo manualmente con un botón
+    # Se ejecuta todos los días a las 06:00 AM UTC (12:00 AM hora México)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Permite ejecutarlo manualmente desde GitHub Actions
 
 jobs:
-  build-and-commit:
+  generar-y-publicar:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Otorga permisos explícitos de escritura para hacer commit
+
     steps:
-      - name: Checkout del repositorio
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -21,20 +24,20 @@ jobs:
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install google-genai python-slugify requests
 
-      - name: Ejecutar script de generación
+      - name: Generar Cuento
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          SITE_BASE_URL: 'https://tusitio.com/cuentos'
-        run: python scripts/generar_cuento.py
+          SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
+        run: |
+          python scripts/generar_cuento.py
 
-      - name: Guardar el nuevo cuento en Git
+      - name: Hacer commit y push del nuevo cuento
         run: |
           git config --global user.name 'Bot Cuentero'
-          git config --global user.email 'bot@tusitio.com'
-          git add content/cuentos/*.md
-          git commit -m "feat: cuento diario automático [skip ci]" || exit 0
-          git push
+          git config --global user.email 'bot@cuentacuentos.local'
+          git add content/cuentos/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "feat: cuento diario automático [skip ci]" && git push)
