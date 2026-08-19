@@ -26,14 +26,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-genai python-slugify requests
 
-      - name: Generar Cuento con Gemini
+      - name: Generar Cuento Diario
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          SITE_BASE_URL: ${{ secrets.SITE_BASE_URL }}
-        run: |
-          python scripts/generar_cuento.py
+          SITE_BASE_URL: "https://herjos.com/cuentacuentos"
+        run: python scripts/generar_cuento.py
 
       # --- NUEVO PASO: Guardar el archivo .md en el repo de cuentacuentos ---
       - name: Commit y Push del cuento diario en cuentacuentos
