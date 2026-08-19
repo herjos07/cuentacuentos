@@ -117,14 +117,15 @@ print("✅ Archivo guardado correctamente en disco.")
 # 5. ENVIAR NOTIFICACIÓN A TELEGRAM
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+    # Este es el enlace directo a la historia con fecha y título
     url_cuento = f"{SITE_BASE_URL}/cuentos/{slug_cuento}"
     
-    # Texto sin formato complejo para evitar errores de sintaxis de Telegram
+    # Mensaje simplificado solo con el enlace directo al cuento
     mensaje = (
         f"📖 ¡Nuevo cuento diario!\n\n"
         f"📌 {titulo}\n\n"
         f"📝 {resumen}\n\n"
-        f"🔗 Léelo completo aquí:\n{url_cuento}"
+        f"🔗 Léelo aquí:\n{url_cuento}"
     )
     
     url_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
