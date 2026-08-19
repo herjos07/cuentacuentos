@@ -93,10 +93,13 @@ os.makedirs(directorio_destino, exist_ok=True)
 
 ruta_archivo = os.path.join(directorio_destino, f"{slug_cuento}.md")
 
+# Ajustado para cumplir con el schema de Astro (date y category obligatorios)
 contenido_markdown = f"""---
 title: "{titulo}"
-pubDate: "{fecha_hoy}"
+date: {fecha_hoy}
+pubDate: {fecha_hoy}
 description: "{resumen}"
+category: "Ficción"
 ---
 
 {cuento_texto}
