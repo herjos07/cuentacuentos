@@ -44,7 +44,7 @@ jobs:
         run: npm ci
 
       - name: Compilar sitio con Astro
-        run: npm run build
+        run: npm install
 
       # --- DESPLIEGUE EN EL REPOSITO MAIN (HerJos) ---
       - name: Checkout del repositorio principal (HerJos)
