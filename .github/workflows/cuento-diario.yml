@@ -2,7 +2,7 @@ name: Publicar Cuento Diario
 
 on:
   schedule:
-    # Se ejecuta a las 15:37 UTC (9:37 AM hora CDMX)
+    # Se ejecuta todos los días a las 15:37 UTC (9:37 AM hora CDMX)
     - cron: '37 15 * * *'
   workflow_dispatch:
 
@@ -35,6 +35,19 @@ jobs:
         run: |
           python scripts/generar_cuento.py
 
+      # --- NUEVO PASO: Guardar el archivo .md en el repo de cuentacuentos ---
+      - name: Commit y Push del cuento diario en cuentacuentos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/cuentos/
+          if git diff --staged --quiet; then
+            echo "No hay nuevos cuentos que guardar en el repo."
+          else
+            git commit -m "chore: agregar cuento generado automáticamente [skip ci]"
+            git push origin main
+          fi
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,7 +59,7 @@ jobs:
       - name: Compilar sitio con Astro
         run: npm run build
 
-      # --- DESPLIEGUE EN EL REPOSITO PRINCIPAL (HerJos) ---
+      # --- DESPLIEGUE EN EL REPOSITORIO PRINCIPAL (HerJos) ---
       - name: Checkout del repositorio principal (HerJos)
         uses: actions/checkout@v4
         with:
