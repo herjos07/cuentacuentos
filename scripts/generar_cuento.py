@@ -1,6 +1,6 @@
 def generar_con_reintento():
-    # Modelos válidos y activos
-    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
+    # Modelos válidos y activos de la API
+    modelos = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
     
     for modelo in modelos:
         print(f"Intentando generar cuento con el modelo: {modelo}...")
