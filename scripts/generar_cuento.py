@@ -31,7 +31,12 @@ TEMAS = [
     "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
     "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
     "una tradición antigua transmitida a una nueva generación",
-    "un viaje en carretera que cambia los planes de los pasajeros"
+    "un viaje en carretera que cambia los planes de los pasajeros",
+    "fantasía y magia",
+    "superación personal",
+    "Secretos familiares",
+    "casas embrujadas",
+    "amor imposible"
 ]
 
 GENEROS = [
@@ -40,7 +45,10 @@ GENEROS = [
     "realismo mágico", 
     "aventura cotidiana", 
     "ciencia ficción cercana", 
-    "cuento reflexivo/humano"
+    "cuento reflexivo/humano",
+    "misterio y suspenso",
+    "terror y paranormal",
+    "drama y romace"
 ]
 
 tema_hoy = random.choice(TEMAS)
@@ -62,7 +70,7 @@ Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
-- Extensión del cuento: entre 350 y 500 palabras.
+- Extensión del cuento: entre 350 y 1000 palabras.
 - Idioma: Español.
 
 Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
