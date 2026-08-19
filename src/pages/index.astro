@@ -13,9 +13,9 @@ cuentos.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).g
     <p>Historias originales generadas día con día.</p>
   </div>
 
-  <div class="cuentos-list">
+ <div class="cuentos-grid">
     {cuentos.length === 0 ? (
-      <div class="cuento-card text-center">
+      <div class="cuento-card text-center no-cuentos">
         <p>Aún no hay cuentos publicados. ¡Regresa más tarde!</p>
       </div>
     ) : (
