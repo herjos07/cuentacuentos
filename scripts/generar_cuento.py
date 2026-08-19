@@ -3,6 +3,7 @@ import json
 import datetime
 from slugify import slugify
 from google import genai
+from google.genai import types
 import requests
 
 # 1. Obtener credenciales de GitHub Secrets
@@ -50,23 +51,23 @@ def enviar_telegram(titulo, resumen, url):
     print("Respuesta de Telegram:", response.json())
 
 def main():
-    # Usamos gemini-2.5-flash con la SDK oficial google-genai
+    # Usar el nombre del modelo actualizado requeridos por Google GenAI SDK
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-3.6-flash',
         contents=prompt,
-        config={
-            'response_mime_type': 'application/json'
-        }
+        config=types.GenerateContentConfig(
+            response_mime_type='application/json'
+        )
     )
 
-    # Limpiar posibles bloques markdown si los incluye
+    # Limpiar bloques de código si la respuesta viene dentro de ```json ... ```
     texto_respuesta = response.text.strip()
     if texto_respuesta.startswith("```json"):
         texto_respuesta = texto_respuesta[7:]
     if texto_respuesta.endswith("```"):
         texto_respuesta = texto_respuesta[:-3]
 
-    data = json.loads(texto_respuesta)
+    data = json.loads(texto_respuesta.strip())
     
     fecha_hoy = datetime.date.today().strftime("%Y-%m-%d")
     slug = slugify(data["titulo"])
