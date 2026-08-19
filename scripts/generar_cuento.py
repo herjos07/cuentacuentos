@@ -64,7 +64,7 @@ print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt = f"""
-Escribe un cuento corto e inspirador.
+Escribe un cuento o historia corta, facil de leer para cualquier público y que te sumerga en la lectura.
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
