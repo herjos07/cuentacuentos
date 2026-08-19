@@ -1,26 +1,27 @@
 ---
 title: "El último alebrije de Don Mateo"
 date: 2026-08-19
-category: "Realismo Mágico y Tradición"
-summary: "Un anciano artesano oaxaqueño teme perder su don ante las sombras de la vejez.
-Una visita inesperada le recordará que el arte verdadero se esculpe con el alma."
+category: "Realismo Mágico y Folklore"
+summary: "En un rincón de Oaxaca, un anciano artesano que pierde la vista descubre que los seres más fantásticos no se tallan con los ojos, sino con los recuerdos del alma."
 slug: "2026-08-19-el-ultimo-alebrije-de-don-mateo"
 ---
 
-En el corazón de San Martín Tilcajete, el taller de Don Mateo olió durante cincuenta años a madera de copal fresca, pintura de grana cochinilla y memorias. Sus manos, antaño ágiles y precisas, habían dado vida a fantásticos alebrijes que viajaron por todo el mundo: jaguares con alas de colibrí, serpientes con patas de venado y coyotes emplumados.
+# El último alebrije de Don Mateo
 
-Sin embargo, el tiempo no perdona. A sus setenta y ocho años, una niebla espesa nublaba la vista de Mateo. Los colores vibrantes que solía combinar con maestría se volvían sombras grises, y sus dedos dolían al sostener las gubias. La tristeza se instaló en su pecho; temía que su última creación fuera un garabato sin alma.
+El aroma a madera de copal recién cortada impregnaba el taller de Don Mateo en San Martín Tilcajete. Durante más de cincuenta años, sus manos habían dado vida a jaguares alados, colibríes con cola de serpiente y coyotes envueltos en fuego. Pero aquella tarde, el viejo artesano contemplaba el bloque de madera con el corazón oprimido. Las sombras en sus ojos, avanzadas por la edad, apenas le permitían distinguir el contorno de la gubia sobre la mesa.
 
-Una noche de lluvia suave, mientras el viento susurraba entre los cerros, un perro callejero, delgado y sin pelo —semejante a los antiguos xoloitzcuintles—, entró sigilosamente al taller. Se sentó junto a la mesa de trabajo y fijó sus ojos oscuros en Don Mateo.
+—Será el último —murmuró con voz cansada, acariciando las suaves vetas del tronco.
 
-El anciano sonrió con amargura. "Ya no hay nada que ver aquí, amigo", murmuró. Pero el animal se acercó y colocó suavemente su cabeza sobre la rodilla del artesano. Luego, con el hocico, empujó un trozo de madera de copal que Mateo había descartado horas antes por considerarlo imperfecto.
+El miedo a dejar su oficio inconcluso lo paralizaba. ¿Cómo tallar la magia si el mundo a su alrededor se reducía a un resplandor borroso? Fue entonces cuando la puerta del taller crujió. Un niño del pueblo, con las manos manchadas de pintura, se acercó en silencio.
 
-Mateo tomó el leño. Al cerrar los ojos para dejar de luchar contra su penumbra, sintió las curvas naturales de la madera. El perro dejó escapar un leve gemido, y Mateo, guiado únicamente por el tacto y el pulso sereno del animal, comenzó a tallar.
+—Don Mateo, la madera no necesita que la veas —dijo el pequeño con la candidez limpia de la infancia—. Ella ya sabe qué quiere ser. Solo tienes que escucharla.
 
-No usó la vista. Las herramientas danzaron sobre el leño suavemente. Imaginó no lo que sus ojos no podían ver, sino lo que su espíritu sentía: la fuerza del viento oaxaqueño, el calor del sol sobre la tierra roja y la fidelidad silenciosa de su visitante. Por primera vez en meses, no sintió dolor ni miedo.
+El anciano sonrió con melancolía, pero decidió cerrar los ojos por completo. Olvidó las líneas perfectas y la precisión visual que siempre lo habían obsesionado. Dejó que sus yemas, curtidas por décadas de trabajo, sintieran la calidez del copal. Siguió las curvas naturales de la rama, los nudos duros, el pulso silencioso del árbol.
 
-Al amanecer, la luz dorada despertó a Mateo, quien se había quedado dormido sobre su mesa. El perro ya no estaba, pero sobre la mesa descansaba una figura terminada.
+Sus dedos guiaron el formón sin prisa. Cada corte no era una forma aprendida, sino el eco de su propia vida: el primer beso bajo el flamboyán, el olor a tierra mojada tras la guelaguetza, la risa de sus hijos recorriendo el patio.
 
-Mateo se frotó los ojos. Por un instante, la niebla en su visión pareció ceder, lo suficiente para admirar la forma: un cánido majestuoso con alas desplegadas, cuyas vetas de madera parecían fluir como ríos de luz.
+Al cabo de tres días, Don Mateo terminó la pieza. Ante él descansaba una criatura que nunca antes había imaginado: una lechuza con patas de venado y alas ondulantes como el viento de la sierra. No era perfecta según las reglas del mercado, pero vibraba con una fuerza casi mística.
 
-Comprendió entonces que la luz de la creación jamás reside en los ojos, sino en la voluntad de seguir entregando el corazón incluso en la oscuridad. Don Mateo sonrió, tomó su pincel y supo que a su historia aún le quedaban muchos colores por trazar.
+Cuando la pintó, usando solo la memoria de los colores —el azul añil de las madrugadas, el amarillo cempasúchil de los recuerdos—, entendió que la verdadera ceguera es olvidar la magia que llevamos dentro.
+
+Aquella criatura no fue su despedida, sino su obra maestra. Y desde aquel día, la gente de Oaxaca decía que los alebrijes de Don Mateo no solo decoraban las casas, sino que velaban los sueños de quienes se atrevían a mirar el mundo con el corazón.
