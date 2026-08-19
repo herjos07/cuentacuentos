@@ -13,6 +13,7 @@ from google import genai
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+# Dominio base con fallback por si no existe en las variables del workflow
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://herjos.com/cuentacuentos")
 
 if not GEMINI_API_KEY:
@@ -44,19 +45,20 @@ GENEROS = [
 
 tema_hoy = random.choice(TEMAS)
 genero_hoy = random.choice(GENEROS)
+categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
 print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
 print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 
 # ---------------------------------------------------------------------------
-# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS Y MODELOS VIGENTES
+# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS
 # ---------------------------------------------------------------------------
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt = f"""
 Escribe un cuento corto e inspirador.
 
-Instrucciones strictly:
+Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
@@ -71,7 +73,6 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-# Lista de modelos actualizados
 modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
 texto_generado = None
 
@@ -89,26 +90,19 @@ for modelo in modelos:
         except Exception as e:
             err_msg = str(e)
             print(f"⚠️ Error en {modelo} (Intento {intento}): {err_msg}")
-            
-            # Si el modelo no existe o ya no está disponible (404), no reintentar ese modelo
             if "404" in err_msg or "NOT_FOUND" in err_msg:
-                print(f"❌ El modelo {modelo} ya no está disponible. Pasando al siguiente...")
+                print(f"❌ El modelo {modelo} no está disponible. Cambiando...")
                 break
-                
-            print("Esperando 5 segundos antes de reintentar...")
             time.sleep(5)
             
     if texto_generado:
         break
 
 if not texto_generado:
-    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras probar con los modelos configurados.")
-
-print("--- RESPUESTA GENERADA ---")
-print(texto_generado[:200] + "...")
+    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos.")
 
 # ---------------------------------------------------------------------------
-# 4. PROCESAMIENTO DEL TEXTO Y EXTRACCIÓN DE DATOS
+# 4. EXTRACCIÓN Y FORMATEO DE DATOS
 # ---------------------------------------------------------------------------
 titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado)
 resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado)
@@ -123,7 +117,7 @@ slug_titulo = slugify(titulo)
 slug_cuento = f"{fecha_hoy}-{slug_titulo}"
 
 # ---------------------------------------------------------------------------
-# 5. GUARDAR ARCHIVO MARKDOWN
+# 5. GUARDAR ARCHIVO MARKDOWN (INCLUYE CATEGORY PARA ASTRO)
 # ---------------------------------------------------------------------------
 output_dir = "src/content/cuentos"
 os.makedirs(output_dir, exist_ok=True)
@@ -136,6 +130,7 @@ markdown_content = f"""---
 title: "{titulo_clean}"
 description: "{resumen_clean}"
 date: "{fecha_hoy}"
+category: "{categoria_hoy}"
 ---
 
 {contenido_cuento}
@@ -147,19 +142,20 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. NOTIFICACIÓN A TELEGRAM
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (URL VISIBLE)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
     
+    # Construcción explícita de la URL
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
     
     mensaje_telegram = (
         f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
         f"📌 <b>{titulo}</b>\n\n"
         f"📝 {resumen}\n\n"
-        f'🔗 <a href="{url_cuento}">Lee el cuento completo aquí</a>'
+        f"🔗 <b>Lee el cuento completo aquí:</b>\n{url_cuento}"
     )
     
     url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -167,7 +163,10 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         "chat_id": TELEGRAM_CHAT_ID,
         "text": mensaje_telegram,
         "parse_mode": "HTML",
-        "disable_web_page_preview": False
+        "link_preview_options": {
+            "is_disabled": False,
+            "url": url_cuento
+        }
     }
     
     print("--- ENVIANDO A TELEGRAM ---")
@@ -175,5 +174,6 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     try:
         res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
         print(f"Status Code Telegram: {res_telegram.status_code}")
+        print(f"Respuesta Telegram: {res_telegram.text}")
     except Exception as e:
-        print(f"❌ Error al conectar con la API de Telegram: {e}")
+        print(f"❌ Error al conectar con Telegram: {e}")
