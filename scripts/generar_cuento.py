@@ -35,7 +35,8 @@ Devuelve la respuesta ÚNICAMENTE en formato JSON válido con la siguiente estru
 """
 
 def generar_con_reintento():
-    modelos = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
+    # Modelos recomendados y activos según la API
+    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
     
     for modelo in modelos:
         print(f"🤖 Intentando generar cuento con el modelo: {modelo}...")
