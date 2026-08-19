@@ -1,0 +1,214 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — HerJos Cuentacuentos</title>
+  
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://herjos.com/logoherjos.png">
+</head>
+<body>
+
+  <!-- Encabezado con estética HerJos -->
+  <header>
+    <a href="https://herjos.com/">
+      <img src="https://herjos.com/logoherjos.png" alt="Logo HerJos" class="header-logo">
+    </a>
+    
+    <div class="brand-name">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 160">
+        <defs>
+          <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FCE074" />
+            <stop offset="35%" stop-color="#EAA123" />
+            <stop offset="70%" stop-color="#B26B09" />
+            <stop offset="100%" stop-color="#FCDA68" />
+          </linearGradient>
+        </defs>
+        <text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" class="gold-text">HerJos</text>
+      </svg>
+    </div>
+
+    <nav>
+      <a href="https://herjos.com/">Inicio HerJos</a>
+      <a href="/cuentacuentos/">Cuentos</a>
+    </nav>
+  </header>
+
+  <!-- Contenido dinámico de las páginas -->
+  <main class="main-container">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2026 HerJos — Creación de sitios web profesionales y presencia digital.
+  </footer>
+
+</body>
+</html>
+
+<style is:global>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FFFFFF;
+    color: #0A1A3F;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Encabezado */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 15px 40px;
+    border-bottom: 2px solid #C9A646;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .header-logo {
+    width: 110px;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .header-logo:hover {
+    transform: scale(1.05);
+  }
+
+  header .brand-name {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header .brand-name svg {
+    height: 75px;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .gold-text {
+    font-family: 'Alex Brush', cursive;
+    font-size: 110px;
+    fill: url(#gold-gradient);
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.4));
+  }
+
+  /* Menú de Navegación */
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+
+  nav a {
+    color: #0A1A3F;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+
+  nav a:hover {
+    color: #C9A646;
+  }
+
+  /* Contenedor Principal */
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #FFFFFF 50%, rgba(10, 26, 63, 0.03) 100%);
+  }
+
+  /* Estilos para Tarjetas/Cuentos dentro del sitio */
+  .cuento-card {
+    width: 100%;
+    max-width: 800px;
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid #E0E0E0;
+    border-top: 5px solid #C9A646;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+  }
+
+  .cuento-card h1, .cuento-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #0A1A3F;
+  }
+
+  /* Botones HerJos */
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #C9A646;
+    color: #0A1A3F;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 2px solid #C9A646;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .btn:hover {
+    background-color: #0A1A3F;
+    color: #FFFFFF;
+    border-color: #C9A646;
+    transform: translateY(-2px);
+  }
+
+  /* Footer */
+  footer {
+    background-color: #0A1A3F;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 14px;
+    border-top: 2px solid #C9A646;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+    }
+    header .brand-name svg {
+      height: 60px;
+    }
+    .cuento-card {
+      padding: 25px 20px;
+    }
+  }
+</style>
