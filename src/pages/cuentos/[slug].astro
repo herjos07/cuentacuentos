@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const cuentos = await getCollection('cuentos');
+  return cuentos.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{entry.data.title}</title>
+    <style>
+      body {
+        font-family: 'Georgia', serif;
+        background-color: #fdfbf7;
+        color: #2c2c2c;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        line-height: 1.8;
+      }
+      header {
+        text-align: center;
+        border-bottom: 1px solid #e2e2e2;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+      .meta {
+        font-size: 0.9rem;
+        color: #777;
+        font-family: system-ui, sans-serif;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 2rem;
+        font-family: system-ui, sans-serif;
+        color: #0066cc;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{entry.data.title}</h1>
+      <div class="meta">
+        <span>📅 {entry.data.date}</span> | <span>🏷️ {entry.data.category}</span>
+      </div>
+    </header>
+
+    <main>
+      <Content />
+    </main>
+
+    <a href="/cuentacuentos/" class="back-link">← Volver al inicio</a>
+  </body>
+</html>
