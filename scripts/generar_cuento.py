@@ -6,7 +6,6 @@ import requests
 from datetime import datetime
 from slugify import slugify
 from google import genai
-from google.genai.errors import ServerError, APIError
 
 # ---------------------------------------------------------------------------
 # 1. CONFIGURACIÓN Y VARIABLES DE ENTORNO
@@ -50,7 +49,7 @@ print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
 print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 
 # ---------------------------------------------------------------------------
-# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS (FALLBACK 503)
+# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS Y FALLBACK
 # ---------------------------------------------------------------------------
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -72,32 +71,31 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-# Lista de modelos a probar en caso de alta demanda en el servidor
+# Modelos disponibles
 modelos = ['gemini-2.5-flash', 'gemini-1.5-flash']
 texto_generado = None
 
 for modelo in modelos:
-    for intento in range(1, 4):  # Hasta 3 reintentos por modelo
+    for intento in range(1, 4):
         try:
             print(f"🧠 Generando cuento con {modelo} (Intento {intento})...")
             response = client.models.generate_content(
                 model=modelo,
                 contents=prompt,
             )
-            texto_generado = response.text
-            break
-        except (ServerError, APIError) as e:
-            print(f"⚠️ Servidor ocupado (503/API Error) en {modelo}. Esperando 5 segundos...")
-            time.sleep(5)
+            if response and response.text:
+                texto_generado = response.text
+                break
         except Exception as e:
-            print(f"❌ Error inesperado: {e}")
-            break
+            print(f"⚠️ Error en {modelo} (Intento {intento}): {e}")
+            print("Esperando 8 segundos antes de reintentar...")
+            time.sleep(8)
             
     if texto_generado:
         break
 
 if not texto_generado:
-    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos por saturación de servidores.")
+    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos.")
 
 print("--- RESPUESTA GENERADA ---")
 print(texto_generado[:200] + "...")
@@ -152,7 +150,6 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
     
-    # Formato HTML para evitar links rotos o paréntesis mal cerrados
     mensaje_telegram = (
         f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
         f"📌 <b>{titulo}</b>\n\n"
