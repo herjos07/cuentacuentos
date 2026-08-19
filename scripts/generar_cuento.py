@@ -19,7 +19,7 @@ if not GEMINI_API_KEY:
     raise ValueError("❌ Error: La variable GEMINI_API_KEY no está configurada.")
 
 # ---------------------------------------------------------------------------
-# 2. VARIADORES DE CONTENIDO (Para evitar repetición de temas)
+# 2. VARIADORES DE CONTENIDO
 # ---------------------------------------------------------------------------
 TEMAS = [
     "un viaje de exploración o descubrimiento de un lugar desconocido",
@@ -49,14 +49,14 @@ print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
 print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 
 # ---------------------------------------------------------------------------
-# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS Y FALLBACK
+# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS Y MODELOS VIGENTES
 # ---------------------------------------------------------------------------
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt = f"""
 Escribe un cuento corto e inspirador.
 
-Instrucciones estrictas:
+Instrucciones strictly:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
@@ -71,8 +71,8 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-# Modelos disponibles
-modelos = ['gemini-2.5-flash', 'gemini-1.5-flash']
+# Lista de modelos actualizados
+modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
 texto_generado = None
 
 for modelo in modelos:
@@ -87,15 +87,22 @@ for modelo in modelos:
                 texto_generado = response.text
                 break
         except Exception as e:
-            print(f"⚠️ Error en {modelo} (Intento {intento}): {e}")
-            print("Esperando 8 segundos antes de reintentar...")
-            time.sleep(8)
+            err_msg = str(e)
+            print(f"⚠️ Error en {modelo} (Intento {intento}): {err_msg}")
+            
+            # Si el modelo no existe o ya no está disponible (404), no reintentar ese modelo
+            if "404" in err_msg or "NOT_FOUND" in err_msg:
+                print(f"❌ El modelo {modelo} ya no está disponible. Pasando al siguiente...")
+                break
+                
+            print("Esperando 5 segundos antes de reintentar...")
+            time.sleep(5)
             
     if texto_generado:
         break
 
 if not texto_generado:
-    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos.")
+    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras probar con los modelos configurados.")
 
 print("--- RESPUESTA GENERADA ---")
 print(texto_generado[:200] + "...")
@@ -111,19 +118,17 @@ titulo = titulo_match.group(1).strip() if titulo_match else "Cuento del Día"
 resumen = resumen_match.group(1).strip() if resumen_match else "Una historia original para disfrutar hoy."
 contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
 
-# Generar fecha y slug
 fecha_hoy = datetime.now().strftime("%Y-%m-%d")
 slug_titulo = slugify(titulo)
 slug_cuento = f"{fecha_hoy}-{slug_titulo}"
 
 # ---------------------------------------------------------------------------
-# 5. GUARDAR ARCHIVO MARKDOWN PARA ASTRO
+# 5. GUARDAR ARCHIVO MARKDOWN
 # ---------------------------------------------------------------------------
 output_dir = "src/content/cuentos"
 os.makedirs(output_dir, exist_ok=True)
 file_path = os.path.join(output_dir, f"{slug_cuento}.md")
 
-# Limpiar comillas para evitar errores en YAML Frontmatter
 titulo_clean = titulo.replace('"', '\\"')
 resumen_clean = resumen.replace('"', '\\"')
 
@@ -142,7 +147,7 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (HTML LIMPIO Y URL ÚNICA)
+# 6. NOTIFICACIÓN A TELEGRAM
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
