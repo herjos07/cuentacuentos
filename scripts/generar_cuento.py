@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import time
 from slugify import slugify
 from google import genai
 from google.genai import types
@@ -12,10 +13,8 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://tusitio.com/cuentos")
 
-# Inicializar cliente oficial
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 2. Prompt
 prompt = """
 Actúa como un prolífico escritor de cuentos cortos en español. 
 Genera un cuento corto original e inspirador ambientado en el folklore, misterio o la cotidianeidad de México.
@@ -50,18 +49,31 @@ def enviar_telegram(titulo, resumen, url):
     response = requests.post(endpoint, json=payload)
     print("Respuesta de Telegram:", response.json())
 
-def main():
-    # Usar el nombre del modelo actualizado requeridos por Google GenAI SDK
-    response = client.models.generate_content(
-        model='gemini-3.6-flash',
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type='application/json'
-        )
-    )
+def generar_con_reintento():
+    modelos = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-1.5-flash']
+    
+    for modelo in modelos:
+        print(f"Intentando generar cuento con el modelo: {modelo}...")
+        for intento in range(2):  # Reintenta 2 veces por modelo
+            try:
+                response = client.models.generate_content(
+                    model=modelo,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type='application/json'
+                    )
+                )
+                return response.text
+            except Exception as e:
+                print(f"⚠️ Error con {modelo} (intento {intento + 1}): {e}")
+                time.sleep(3)  # Espera 3 segundos antes de reintentar
+                
+    raise Exception("No se pudo generar el cuento tras reintentar con múltiples modelos.")
 
-    # Limpiar bloques de código si la respuesta viene dentro de ```json ... ```
-    texto_respuesta = response.text.strip()
+def main():
+    texto_respuesta = generar_con_reintento().strip()
+
+    # Limpiar posibles bloques de código JSON
     if texto_respuesta.startswith("```json"):
         texto_respuesta = texto_respuesta[7:]
     if texto_respuesta.endswith("```"):
@@ -72,7 +84,10 @@ def main():
     fecha_hoy = datetime.date.today().strftime("%Y-%m-%d")
     slug = slugify(data["titulo"])
     nombre_archivo = f"{fecha_hoy}-{slug}.md"
-    url_cuento = f"{SITE_BASE_URL}/{fecha_hoy}-{slug}"
+    
+    # Limpia la URL base quitando slashes al final si existen
+    base_clean = SITE_BASE_URL.rstrip("/")
+    url_cuento = f"{base_clean}/{fecha_hoy}-{slug}"
 
     contenido_file = f"""---
 title: "{data['titulo']}"
