@@ -4,7 +4,6 @@ import random
 import requests
 from slugify import slugify
 from google import genai
-from google.genai import types
 
 # ---------------------------------------------------------------------------
 # 1. CONFIGURACIÓN Y VARIABLES DE ENTORNO
@@ -55,7 +54,7 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 prompt = f"""
 Escribe un cuento corto e inspirador.
 
-Instrucciones estrictas:
+Instrucciones strictly:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
@@ -71,6 +70,8 @@ CUENTO:
 """
 
 print("🧠 Generando cuento con Gemini...")
+
+# Usamos el identificador estándar recomendado por el SDK
 response = client.models.generate_content(
     model='gemini-2.5-flash',
     contents=prompt,
@@ -104,7 +105,7 @@ output_dir = "src/content/cuentos"
 os.makedirs(output_dir, exist_ok=True)
 file_path = os.path.join(output_dir, f"{slug_cuento}.md")
 
-# Limpiar comillas del título para evitar errores de YAML Frontmatter
+# Limpiar comillas para evitar errores en YAML Frontmatter
 titulo_clean = titulo.replace('"', '\\"')
 resumen_clean = resumen.replace('"', '\\"')
 
@@ -126,15 +127,13 @@ print(f"✅ Archivo guardado correctamente en: {file_path}")
 # 6. ENVIAR NOTIFICACIÓN A TELEGRAM (URL ÚNICA Y LIMPIA)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # 1. Aseguramos que no existan espacios ni saltos de línea que rompan el link
+    # Sanitización de la URL para evitar que se rompa con saltos de línea
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
     
-    # Construcción de la URL final limpia
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
     
-    # 2. Mensaje en formato Markdown con el link oculto tras el texto [Léelo aquí]
-    # Esto evita que aparezca la URL larga escrita y que se duplique.
+    # Formato Markdown para que aparezca como hipervínculo limpio
     mensaje_telegram = (
         f"📖 *¡Nuevo cuento diario!*\n\n"
         f"📌 *{titulo}*\n\n"
@@ -146,8 +145,8 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": mensaje_telegram,
-        "parse_mode": "Markdown",             # Permite hipervínculos limpios [Texto](URL)
-        "disable_web_page_preview": False      # Mantiene 1 sola vista previa elegante abajo
+        "parse_mode": "Markdown",
+        "disable_web_page_preview": False
     }
     
     print("--- ENVIANDO A TELEGRAM ---")
