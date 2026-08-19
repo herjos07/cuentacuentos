@@ -117,10 +117,10 @@ print("✅ Archivo guardado correctamente en disco.")
 # 5. ENVIAR NOTIFICACIÓN A TELEGRAM
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # Este es el enlace directo a la historia con fecha y título
-    url_cuento = f"{SITE_BASE_URL}/cuentos/{slug_cuento}"
+    # URL única y directa al cuento de hoy
+    url_cuento = f"{SITE_BASE_URL.rstrip('/')}/cuentos/{slug_cuento}"
     
-    # Mensaje simplificado solo con el enlace directo al cuento
+    # Mensaje limpio con UNA SOLA URL al final
     mensaje = (
         f"📖 ¡Nuevo cuento diario!\n\n"
         f"📌 {titulo}\n\n"
