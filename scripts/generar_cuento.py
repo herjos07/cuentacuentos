@@ -2,17 +2,16 @@ import os
 import json
 import datetime
 from slugify import slugify
-from google import genai
-from google.genai import types
+import google.generativeai as genai
 import requests
 
-# 1. Obtener credenciales de GitHub Secrets
+# 1. Configurar credenciales
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://tusitio.com/cuentos")
 
-client = genai.Client(api_key=GEMINI_API_KEY)
+genai.configure(api_key=GEMINI_API_KEY)
 
 # 2. Prompt estructurado para la historia
 prompt = """
@@ -50,13 +49,12 @@ def enviar_telegram(titulo, resumen, url):
     print("Respuesta de Telegram:", response.json())
 
 def main():
-    # Pedir cuento a Gemini usando un modelo estable de Flash
-    response = client.models.generate_content(
-        model='gemini-1.5-flash',
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json"
-        )
+    # Usar el modelo estable gemini-1.5-flash
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    
+    response = model.generate_content(
+        prompt,
+        generation_config={"response_mime_type": "application/json"}
     )
 
     data = json.loads(response.text)
