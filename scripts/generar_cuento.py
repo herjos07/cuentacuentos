@@ -123,26 +123,35 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (UNA SOLA URL)
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (URL ÚNICA Y LIMPIA)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # URL única y directa al cuento
-    url_cuento = f"{SITE_BASE_URL.rstrip('/')}/cuentos/{slug_cuento}"
+    # 1. Aseguramos que no existan espacios ni saltos de línea que rompan el link
+    base_url_clean = SITE_BASE_URL.strip().rstrip('/')
+    slug_clean = slug_cuento.strip()
     
+    # Construcción de la URL final limpia
+    url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
+    
+    # 2. Mensaje en formato Markdown con el link oculto tras el texto [Léelo aquí]
+    # Esto evita que aparezca la URL larga escrita y que se duplique.
     mensaje_telegram = (
-        f"📖 ¡Nuevo cuento diario!\n\n"
-        f"📌 {titulo}\n\n"
+        f"📖 *¡Nuevo cuento diario!*\n\n"
+        f"📌 *{titulo}*\n\n"
         f"📝 {resumen}\n\n"
-        f"🔗 Léelo aquí:\n{url_cuento}"
+        f"🔗 [Lee el cuento completo aquí]({url_cuento})"
     )
     
     url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
-        "text": mensaje_telegram
+        "text": mensaje_telegram,
+        "parse_mode": "Markdown",             # Permite hipervínculos limpios [Texto](URL)
+        "disable_web_page_preview": False      # Mantiene 1 sola vista previa elegante abajo
     }
     
     print("--- ENVIANDO A TELEGRAM ---")
+    print(f"URL generada: {url_cuento}")
     try:
         res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
         print(f"Status Code Telegram: {res_telegram.status_code}")
