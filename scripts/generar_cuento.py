@@ -1,10 +1,12 @@
 import os
 import re
+import time
 import random
 import requests
 from datetime import datetime
 from slugify import slugify
 from google import genai
+from google.genai.errors import ServerError, APIError
 
 # ---------------------------------------------------------------------------
 # 1. CONFIGURACIÓN Y VARIABLES DE ENTORNO
@@ -48,7 +50,7 @@ print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
 print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 
 # ---------------------------------------------------------------------------
-# 3. LLAMADA A LA API DE GEMINI
+# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS (FALLBACK 503)
 # ---------------------------------------------------------------------------
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -70,14 +72,33 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-print("🧠 Generando cuento con Gemini...")
+# Lista de modelos a probar en caso de alta demanda en el servidor
+modelos = ['gemini-2.5-flash', 'gemini-1.5-flash']
+texto_generado = None
 
-response = client.models.generate_content(
-    model='gemini-3.6-flash',
-    contents=prompt,
-)
+for modelo in modelos:
+    for intento in range(1, 4):  # Hasta 3 reintentos por modelo
+        try:
+            print(f"🧠 Generando cuento con {modelo} (Intento {intento})...")
+            response = client.models.generate_content(
+                model=modelo,
+                contents=prompt,
+            )
+            texto_generado = response.text
+            break
+        except (ServerError, APIError) as e:
+            print(f"⚠️ Servidor ocupado (503/API Error) en {modelo}. Esperando 5 segundos...")
+            time.sleep(5)
+        except Exception as e:
+            print(f"❌ Error inesperado: {e}")
+            break
+            
+    if texto_generado:
+        break
 
-texto_generado = response.text
+if not texto_generado:
+    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos por saturación de servidores.")
+
 print("--- RESPUESTA GENERADA ---")
 print(texto_generado[:200] + "...")
 
@@ -126,13 +147,12 @@ print(f"✅ Archivo guardado correctamente en: {file_path}")
 # 6. ENVIAR NOTIFICACIÓN A TELEGRAM (HTML LIMPIO Y URL ÚNICA)
 # ---------------------------------------------------------------------------
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    # Limpieza estricta de espacios y diagonales sobrantes
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     slug_clean = slug_cuento.strip()
     
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
     
-    # Formato HTML para evitar rotura de enlaces o parentesis mal cerrados
+    # Formato HTML para evitar links rotos o paréntesis mal cerrados
     mensaje_telegram = (
         f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
         f"📌 <b>{titulo}</b>\n\n"
