@@ -1,72 +1,81 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const todosLosCuentos = await getCollection('cuentos');
-todosLosCuentos.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+// Obtener todos los cuentos y ordenarlos del más reciente al más antiguo
+const cuentos = await getCollection('cuentos');
+cuentos.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Biblioteca de Cuentos Diarios</title>
-    <style>
-      body {
-        font-family: system-ui, sans-serif;
-        background-color: #f8f9fa;
-        color: #333;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-      }
-      h1 {
-        text-align: center;
-        color: #1a1a1a;
-      }
-      .grid {
-        display: grid;
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-      .card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        border: 1px solid #eee;
-      }
-      .card h2 {
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-      }
-      .card a {
-        color: #0066cc;
-        text-decoration: none;
-      }
-      .card a:hover {
-        text-decoration: underline;
-      }
-      .meta {
-        font-size: 0.85rem;
-        color: #666;
-        margin-bottom: 0.5rem;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>📖 Biblioteca de Cuentos Diarios</h1>
-    <p style="text-align: center; color: #666;">Relatos e historias breves generados automáticamente cada día.</p>
+<Layout title="Cuentos Diarios">
+  <div class="hero-section">
+    <h1>📖 Cuentacuentos Diarios</h1>
+    <p>Historias originales generadas día con día por Inteligencia Artificial.</p>
+  </div>
 
-    <div class="grid">
-      {todosLosCuentos.map(cuento => (
-        <article class="card">
-          <h2>
-            <a href={`/cuentacuentos/cuentos/${cuento.slug}`}>{cuento.data.title}</a>
-          </h2>
-          <div class="meta">{cuento.data.date} • {cuento.data.category}</div>
-          <p>{cuento.data.summary}</p>
+  <div class="cuentos-list">
+    {cuentos.length === 0 ? (
+      <div class="cuento-card text-center">
+        <p>Aún no hay cuentos publicados. ¡Regresa más tarde!</p>
+      </div>
+    ) : (
+      cuentos.map((cuento) => (
+        <article class="cuento-card">
+          <h2>{cuento.data.title}</h2>
+          <p class="fecha">🗓️ {cuento.data.date}</p>
+          <p class="resumen">{cuento.data.description}</p>
+          <a href={`/cuentacuentos/cuentos/${cuento.slug}`} class="btn">
+            Leer cuento
+          </a>
         </article>
-      ))}
-    </div>
-  </body>
-</html>
+      ))
+    )}
+  </div>
+</Layout>
+
+<style>
+  .hero-section {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .hero-section h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    color: #0A1A3F;
+    margin-bottom: 10px;
+  }
+
+  .hero-section p {
+    color: #555;
+    font-size: 16px;
+  }
+
+  .cuentos-list {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cuento-card h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .fecha {
+    color: #C9A646;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .resumen {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+</style>
