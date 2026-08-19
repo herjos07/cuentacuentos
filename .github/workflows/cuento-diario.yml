@@ -41,12 +41,12 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias de Astro
-        run: npm ci
-
-      - name: Compilar sitio con Astro
         run: npm install
 
-      # --- DESPLIEGUE EN EL REPOSITO MAIN (HerJos) ---
+      - name: Compilar sitio con Astro
+        run: npm run build
+
+      # --- DESPLIEGUE EN EL REPOSITO PRINCIPAL (HerJos) ---
       - name: Checkout del repositorio principal (HerJos)
         uses: actions/checkout@v4
         with:
