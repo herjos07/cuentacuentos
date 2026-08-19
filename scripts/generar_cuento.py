@@ -149,11 +149,6 @@ with open(file_path, "w", encoding="utf-8") as f:
 
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
-
-# Esperar a que GitHub Pages compile y despliegue el cuento antes de publicar en FB
-print("Esperando 180 segundos a que la página esté en vivo...")
-time.sleep(180)
-
 # ---------------------------------------------------------------------------
 # 6. ENVIAR NOTIFICACIÓN A TELEGRAM (CON PAUSA PARA PERMITIR DESPLIEGUE)
 # ---------------------------------------------------------------------------
@@ -164,9 +159,6 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     slug_clean = slug_cuento.strip()
     
     url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
-    
-    print("⏳ Esperando 90 segundos para permitir que el sitio se publique en el servidor...")
-    time.sleep(90)
     
     mensaje_telegram = (
         f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
