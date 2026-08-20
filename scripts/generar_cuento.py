@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 import time
 import random
 import requests
@@ -14,61 +13,56 @@ from google import genai
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
-FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
-FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
-
+# Dominio base con fallback por si no existe en las variables del workflow
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://herjos.com/cuentacuentos")
 
-MODO_SOLO_GENERAR = "--solo-generar" in sys.argv
-MODO_SOLO_NOTIFICAR = "--solo-notificar" in sys.argv
-
-if not MODO_SOLO_GENERAR and not MODO_SOLO_NOTIFICAR:
-    MODO_SOLO_GENERAR = True
-    MODO_SOLO_NOTIFICAR = True
+if not GEMINI_API_KEY:
+    raise ValueError("❌ Error: La variable GEMINI_API_KEY no está configurada.")
 
 # ---------------------------------------------------------------------------
-# 2. FUNCIONES
+# 2. VARIADORES DE CONTENIDO
 # ---------------------------------------------------------------------------
+TEMAS = [
+    "un viaje de exploración o descubrimiento de un lugar desconocido",
+    "un misterio ligero en una ciudad pequeña",
+    "una invención o descubrimiento culinario/artesanal peculiar",
+    "la conexión entre una persona y un animal o entorno natural",
+    "un desafío personal, la superación de un miedo o una decisión importante",
+    "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
+    "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
+    "una tradición antigua transmitida a una nueva generación",
+    "un viaje en carretera que cambia los planes de los pasajeros"
+]
 
-def generar_y_guardar_cuento():
-    if not GEMINI_API_KEY:
-        raise ValueError("❌ Error: La variable GEMINI_API_KEY no está configurada.")
+GENEROS = [
+    "fantasía suave", 
+    "misterio ligero", 
+    "realismo mágico", 
+    "aventura cotidiana", 
+    "ciencia ficción cercana", 
+    "cuento reflexivo/humano"
+]
 
-    TEMAS = [
-        "un viaje de exploración o descubrimiento de un lugar desconocido",
-        "un misterio ligero en una ciudad pequeña",
-        "una invención o descubrimiento culinario/artesanal peculiar",
-        "la conexión entre una persona y un animal o entorno natural",
-        "un desafío personal, la superación de un miedo o una decisión importante",
-        "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
-        "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
-        "una tradición antigua transmitida a una nueva generación",
-        "un viaje en carretera que cambia los planes de los pasajeros",
-        "fantasía y magia", "superación personal", "Secretos familiares",
-        "casas embrujadas", "amor imposible"
-    ]
+tema_hoy = random.choice(TEMAS)
+genero_hoy = random.choice(GENEROS)
+categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
-    GENEROS = [
-        "fantasía suave", "misterio ligero", "realismo mágico", 
-        "aventura cotidiana", "ciencia ficción cercana", "cuento reflexivo/humano",
-        "misterio y suspenso", "terror y paranormal", "drama y romance"
-    ]
+print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
+print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 
-    tema_hoy = random.choice(TEMAS)
-    genero_hoy = random.choice(GENEROS)
+# ---------------------------------------------------------------------------
+# 3. LLAMADA A LA API DE GEMINI CON REINTENTOS
+# ---------------------------------------------------------------------------
+client = genai.Client(api_key=GEMINI_API_KEY)
 
-    print(f"🎲 Tema: {tema_hoy} | Género: {genero_hoy}")
-
-    client = genai.Client(api_key=GEMINI_API_KEY)
-
-    prompt = f"""
-Escribe un cuento o historia corta, fácil de leer para cualquier público y que te sumerja en la lectura.
+prompt = f"""
+Escribe un cuento corto e inspirador.
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
-- Extensión del cuento: entre 350 y 1000 palabras.
+- Extensión del cuento: entre 350 y 500 palabras.
 - Idioma: Español.
 
 Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
@@ -79,157 +73,141 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-    modelos = ['gemini-3.6-flash', 'gemini-3.5-flash-lite']
-    texto_generado = None
+modelos = ['gemini-3.6-flash', 'gemini-2.5-flash-lite']
+texto_generado = None
 
-    for modelo in modelos:
-        for intento in range(1, 4):
-            try:
-                print(f"🧠 Generando con {modelo} (Intento {intento})...")
-                response = client.models.generate_content(model=modelo, contents=prompt)
-                if response and response.text:
-                    texto_generado = response.text
-                    break
-            except Exception as e:
-                print(f"⚠️ Error en {modelo}: {e}")
-                time.sleep(3)
-        if texto_generado:
-            break
+for modelo in modelos:
+    for intento in range(1, 4):
+        try:
+            print(f"🧠 Generando cuento con {modelo} (Intento {intento})...")
+            response = client.models.generate_content(
+                model=modelo,
+                contents=prompt,
+            )
+            if response and response.text:
+                texto_generado = response.text
+                break
+        except Exception as e:
+            err_msg = str(e)
+            print(f"⚠️ Error en {modelo} (Intento {intento}): {err_msg}")
+            if "404" in err_msg or "NOT_FOUND" in err_msg:
+                print(f"❌ El modelo {modelo} no está disponible. Cambiando...")
+                break
+            time.sleep(5)
+            
+    if texto_generado:
+        break
 
-    if not texto_generado:
-        raise RuntimeError("❌ No se pudo obtener respuesta de Gemini.")
+if not texto_generado:
+    raise RuntimeError("❌ No se pudo obtener respuesta de la API tras varios intentos.")
 
-    titulo = "Cuento del Día"
-    resumen = "Una historia original para disfrutar hoy."
-    contenido_cuento = texto_generado
+# ---------------------------------------------------------------------------
+# 4. EXTRACCIÓN Y FORMATEO DE DATOS
+# ---------------------------------------------------------------------------
+titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado)
+resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado)
+cuento_match = re.search(r"CUENTO:\s*([\s\S]*)", texto_generado)
 
-    lines = texto_generado.split("\n")
-    cuento_lines = []
-    en_cuento = False
+titulo = titulo_match.group(1).strip() if titulo_match else "Cuento del Día"
+resumen = resumen_match.group(1).strip() if resumen_match else "Una historia original para disfrutar hoy."
+contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
 
-    for line in lines:
-        clean_line = line.strip().replace("**", "").replace("*", "")
-        if re.match(r"^TITULO:", clean_line, re.IGNORECASE):
-            titulo = re.sub(r"^TITULO:\s*", "", clean_line, flags=re.IGNORECASE).strip()
-        elif re.match(r"^RESUMEN:", clean_line, re.IGNORECASE):
-            resumen = re.sub(r"^RESUMEN:\s*", "", clean_line, flags=re.IGNORECASE).strip()
-        elif re.match(r"^CUENTO:", clean_line, re.IGNORECASE):
-            en_cuento = True
-        elif en_cuento:
-            cuento_lines.append(line)
+fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+slug_titulo = slugify(titulo)
+slug_cuento = f"{fecha_hoy}-{slug_titulo}"
 
-    if cuento_lines:
-        contenido_cuento = "\n".join(cuento_lines).strip()
+# ---------------------------------------------------------------------------
+# 5. GUARDAR ARCHIVO MARKDOWN (INCLUYE CATEGORY PARA ASTRO)
+# ---------------------------------------------------------------------------
+output_dir = "src/content/cuentos"
+os.makedirs(output_dir, exist_ok=True)
+file_path = os.path.join(output_dir, f"{slug_cuento}.md")
 
-    fecha_hoy = datetime.now().strftime("%Y-%m-%d")
-    timestamp_hora = datetime.now().strftime("%H%M")
-    
-    # Slug limpio de caracteres especiales
-    slug_titulo_limpio = slugify(titulo, lowercase=True)
-    slug_cuento = f"{fecha_hoy}-{timestamp_hora}-{slug_titulo_limpio}"
+titulo_clean = titulo.replace('"', '\\"')
+resumen_clean = resumen.replace('"', '\\"')
 
-    output_dir = "src/content/cuentos"
-    os.makedirs(output_dir, exist_ok=True)
-    file_path = os.path.join(output_dir, f"{slug_cuento}.md")
-
-    titulo_clean = titulo.replace('"', '\\"')
-    resumen_clean = resumen.replace('"', '\\"')
-
-    markdown_content = f"""---
+markdown_content = f"""---
 title: "{titulo_clean}"
 description: "{resumen_clean}"
 date: "{fecha_hoy}"
-category: "{genero_hoy}"
+category: "{categoria_hoy}"
 ---
 
 {contenido_cuento}
 """
 
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(markdown_content)
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(markdown_content)
 
-    print(f"✅ Cuento guardado en: {file_path}")
-    print(f"📌 Título: {titulo}")
-    print(f"📝 Resumen: {resumen}")
+print(f"✅ Archivo guardado correctamente en: {file_path}")
 
-
-def notificar_redes_sociales():
-    output_dir = "src/content/cuentos"
-    archivos = sorted([f for f in os.listdir(output_dir) if f.endswith(".md")])
-    if not archivos:
-        print("❌ No se encontraron cuentos para notificar.")
-        return
-
-    # Toma el archivo más reciente ordenado alfabéticamente/cronológicamente
-    ultimo_archivo = archivos[-1]
-    file_path = os.path.join(output_dir, ultimo_archivo)
-
-    with open(file_path, "r", encoding="utf-8") as f:
-        contenido = f.read()
-
-    titulo_match = re.search(r'title:\s*"(.*?)"', contenido)
-    resumen_match = re.search(r'description:\s*"(.*?)"', contenido)
-
-    titulo = titulo_match.group(1) if titulo_match else "Cuento del Día"
-    resumen = resumen_match.group(1) if resumen_match else "¡Descubre nuestro cuento de hoy!"
-    
-    # Nombre exacto del archivo sin .md
-    slug_cuento = ultimo_archivo.replace(".md", "")
-
+# ---------------------------------------------------------------------------
+# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (CON PAUSA PARA PERMITIR DESPLIEGUE)
+# ---------------------------------------------------------------------------
+if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
-    url_cuento = f"{base_url_clean}/cuentos/{slug_cuento}/"
-
-    print(f"🔗 Notificando el cuento más reciente: {titulo}")
-    print(f"📝 Resumen: {resumen}")
-    print(f"🌐 URL final: {url_cuento}")
-
-    # 1. TELEGRAM
-    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-        mensaje_telegram = (
-            f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
-            f"📌 <b>{titulo}</b>\n\n"
-            f"📝 {resumen}\n\n"
-            f"🔗 <b>Lee el cuento completo aquí:</b>\n{url_cuento}"
-        )
-        url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-        payload_tg = {
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": mensaje_telegram,
-            "parse_mode": "HTML",
-            "link_preview_options": {"is_disabled": False, "url": url_cuento}
-        }
-        try:
-            res_tg = requests.post(url_api_telegram, json=payload_tg, timeout=10)
-            print(f"📱 Telegram Status: {res_tg.status_code}")
-        except Exception as e:
-            print(f"❌ Error Telegram: {e}")
-
-    # 2. FACEBOOK
-    if FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN:
-        url_fb = f"https://graph.facebook.com/v22.0/{FACEBOOK_PAGE_ID}/feed"
-        mensaje_facebook = (
-            f"📖 ¡Nuevo cuento disponible hoy!\n\n"
-            f"✨ {titulo}\n\n"
-            f"{resumen}\n\n"
-            f"Lee la historia completa en nuestro sitio web 👇\n"
-            f"{url_cuento}"
-        )
-        payload_fb = {
-            "message": mensaje_facebook,
-            "link": url_cuento,
-            "access_token": FACEBOOK_PAGE_ACCESS_TOKEN
-        }
-        try:
-            res_fb = requests.post(url_fb, data=payload_fb, timeout=15)
-            print(f"📘 Facebook Status: {res_fb.status_code}")
-        except Exception as e:
-            print(f"❌ Error Facebook: {e}")
-
-if __name__ == "__main__":
-    if MODO_SOLO_GENERAR:
-        print("🚀 [ETAPA 1] Generando cuento...")
-        generar_y_guardar_cuento()
+    slug_clean = slug_cuento.strip()
     
-    if MODO_SOLO_NOTIFICAR:
-        print("🚀 [ETAPA 2] Enviando notificaciones...")
-        notificar_redes_sociales()
+    url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
+    
+    print("⏳ Esperando 90 segundos para permitir que el sitio se publique en el servidor...")
+    time.sleep(90)
+    
+    mensaje_telegram = (
+        f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
+        f"📌 <b>{titulo}</b>\n\n"
+        f"📝 {resumen}\n\n"
+        f"🔗 <b>Lee el cuento completo aquí:</b>\n{url_cuento}"
+    )
+    
+    url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": mensaje_telegram,
+        "parse_mode": "HTML",
+        "link_preview_options": {
+            "is_disabled": False,
+            "url": url_cuento
+        }
+    }
+    
+    print("--- ENVIANDO A TELEGRAM ---")
+    print(f"URL generada: {url_cuento}")
+    try:
+        res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
+        print(f"Status Code Telegram: {res_telegram.status_code}")
+    except Exception as e:
+        print(f"❌ Error al conectar con Telegram: {e}")
+
+        # ---------------------------------------------------------------------------
+# PUBLICACIÓN EN FACEBOOK
+# ---------------------------------------------------------------------------
+FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
+FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
+
+if FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN:
+    url_fb = f"https://graph.facebook.com/v22.0/{FACEBOOK_PAGE_ID}/feed"
+    
+    mensaje_facebook = (
+        f"📖 ¡Nuevo cuento disponible hoy!\n\n"
+        f"✨ {titulo}\n\n"
+        f"{resumen}\n\n"
+        f"Lee la historia completa en nuestro sitio web 👇\n"
+        f"{url_cuento}"
+    )
+    
+    payload_fb = {
+        "message": mensaje_facebook,
+        "link": url_cuento,
+        "access_token": FACEBOOK_PAGE_ACCESS_TOKEN
+    }
+    
+    print("--- ENVIANDO A FACEBOOK ---")
+    try:
+        res_fb = requests.post(url_fb, data=payload_fb, timeout=15)
+        if res_fb.status_code == 200:
+            print("✅ Publicado con éxito en Facebook.")
+        else:
+            print(f"⚠️ Error al publicar en Facebook ({res_fb.status_code}): {res_fb.text}")
+    except Exception as e:
+        print(f"❌ Error al conectar con la API de Facebook: {e}")
