@@ -6,9 +6,7 @@ export default defineConfig({
   base: '/cuentacuentos',
   integrations: [
     sitemap({
-      changefreq: 'daily',
-      priority: 0.7,
-      lastmod: new Date(),
-    })
+      filter: (page) => true,
+    }),
   ],
 });
