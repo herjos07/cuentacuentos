@@ -73,6 +73,10 @@ SUBVERSION_DE_TROPOS = [
 
 tema_hoy = random.choice(TEMAS)
 genero_hoy = random.choice(GENEROS)
+estructura_hoy = random.choice(ESTRUCTURAS_TEMPORALES)
+voces_hoy = random.choice(VOCES_NARRATIVAS)
+estilos_hoy = random.choice(ESTILOS_DE_PROSA)
+tropos_hoy = random.choice(SUBVERSION_DE_TROPOS)
 categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
 print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
@@ -89,6 +93,10 @@ Escribe un cuento corto e inspirador.
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
+- ESTRUCTURAS TEMPORALES: {estructura_hoy}
+- Voces narrativas: {voces_hoy}
+- Estilo de prosa: {estilos_hoy}
+- Supervision de tropos: {tropos_hoy}
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
 - Extensión del cuento: hasta 3000 palabras.
 - Idioma: Español.
