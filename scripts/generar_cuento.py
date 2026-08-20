@@ -45,13 +45,13 @@ def generar_y_guardar_cuento():
         "una tradición antigua transmitida a una nueva generación",
         "un viaje en carretera que cambia los planes de los pasajeros",
         "fantasía y magia", "superación personal", "Secretos familiares",
-        "casas embrujadas", "amor imposible"
+        "casas embrujadas", "amor imposible", "méxico"
     ]
 
     GENEROS = [
         "fantasía suave", "misterio ligero", "realismo mágico", 
         "aventura cotidiana", "ciencia ficción cercana", "cuento reflexivo/humano",
-        "misterio y suspenso", "terror y paranormal", "drama y romance"
+        "misterio y suspenso", "terror y paranormal", "drama y romance","méxico"
     ]
 
     tema_hoy = random.choice(TEMAS)
