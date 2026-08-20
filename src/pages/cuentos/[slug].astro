@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const cuentos = await getCollection('cuentos');
@@ -11,76 +12,116 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Fecha en formato ISO para datos estructurados y article:published_time
+const fechaISO = new Date(entry.data.date).toISOString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ShortStory",
+  "headline": entry.data.title,
+  "description": entry.data.description,
+  "genre": entry.data.category,
+  "datePublished": fechaISO,
+  "inLanguage": "es",
+  "author": {
+    "@type": "Organization",
+    "name": "HerJos Cuentacuentos"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "HerJos",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://herjos.com/logoherjos.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://herjos.com/cuentacuentos/cuentos/${entry.slug}`
+  }
+};
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{entry.data.title}</title>
-    <style>
-      body {
-        font-family: 'Georgia', serif;
-        background-color: #fdfbf7;
-        color: #2c2c2c;
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-        line-height: 1.8;
-      }
-      header {
-        text-align: center;
-        border-bottom: 1px solid #e2e2e2;
-        padding-bottom: 1.5rem;
-        margin-bottom: 2rem;
-      }
-      h1 {
-        font-size: 2.2rem;
-        color: #1a1a1a;
-        margin-bottom: 0.5rem;
-      }
-      .meta {
-        font-size: 0.9rem;
-        color: #777;
-        font-family: system-ui, sans-serif;
-      }
-      .back-link {
-        display: inline-block;
-        margin-top: 2rem;
-        font-family: system-ui, sans-serif;
-        color: #0066cc;
-        text-decoration: none;
-      }
-      .back-link:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
+<Layout
+  title={entry.data.title}
+  description={entry.data.description}
+  type="article"
+  publishedTime={fechaISO}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="cuento-card">
+    <header class="cuento-header">
       <h1>{entry.data.title}</h1>
       <div class="meta">
         <span>📅 {entry.data.date}</span> | <span>🏷️ {entry.data.category}</span>
       </div>
     </header>
 
-    <main>
+    <div class="cuento-contenido">
       <Content />
-          <!-- Anuncio al final del cuento -->
-          <div class="my-8 text-center min-h-[90px]">
-            <p class="text-xs text-gray-400 mb-1">Publicidad</p>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8110695346048617"
-                 data-ad-slot="6900639161"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script is:inline>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
-    </main>
+    </div>
 
-    <a href="/cuentacuentos/" class="back-link">← Volver al inicio</a>
-  </body>
-</html>
+    <!-- Anuncio al final del cuento -->
+    <div class="ad-container">
+      <p class="ad-label">Publicidad</p>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-8110695346048617"
+           data-ad-slot="6900639161"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script is:inline>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </article>
+
+  <a href="/cuentacuentos/" class="btn back-link">← Volver al inicio</a>
+</Layout>
+
+<style>
+  .cuento-header {
+    text-align: center;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta {
+    font-size: 0.9rem;
+    color: #777;
+    font-family: system-ui, sans-serif;
+    margin-top: 0.5rem;
+  }
+
+  .cuento-contenido {
+    font-family: 'Georgia', serif;
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .cuento-contenido :global(p) {
+    margin-bottom: 1.1rem;
+  }
+
+  .ad-container {
+    margin: 2rem 0 0.5rem;
+    text-align: center;
+    min-height: 90px;
+  }
+
+  .ad-label {
+    font-size: 0.75rem;
+    color: #999;
+    margin-bottom: 4px;
+    font-family: system-ui, sans-serif;
+  }
+
+  .back-link {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+</style>
