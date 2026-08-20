@@ -77,7 +77,7 @@ genero_hoy = random.choice(GENEROS)
 estructuras = random.choice(ESTRUCTURAS_TEMPORALES)
 voces = random.choice(VOCES_NARRATIVAS)
 prosa = random.choice(ESTILOS_DE_PROSA)
-tropo = random.choice(SUBVERSION_DE_TROPOS)
+tropos = random.choice(SUBVERSION_DE_TROPOS)
 categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
 print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
