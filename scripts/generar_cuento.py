@@ -31,7 +31,11 @@ TEMAS = [
     "un objeto común que empieza a comportarse de forma físicamente imposible",
     "un personaje que descubre que la versión oficial de su propia historia es mentira",
     "dos rivales obligados a cooperar para ocultar un error que arruinaría a ambos",
-    "una oferta irresistible que oculta un precio demasiado alto o una trampa"
+    "una oferta irresistible que oculta un precio demasiado alto o una trampa",
+    "[Generar un tema aleatorio basado en un conflicto absurdo o cotidiano]",
+    "[Generar un tema aleatorio basado en un descubrimiento científico o mágico]",
+    "[Generar un tema aleatorio basado en un dilema moral entre dos personajes]",
+    "[Generar un tema aleatorio basado en un viaje o mudanza inesperada]"
 ]
 
 GENEROS = [
@@ -40,7 +44,10 @@ GENEROS = [
     "realismo mágico", 
     "aventura cotidiana", 
     "ciencia ficción cercana", 
-    "cuento reflexivo/humano"
+    "cuento reflexivo/humano",
+    "[Combinar dos géneros literarios al azar, por ejemplo: Terror + Comedia]",
+    "[Inventar un subgénero híbrido moderno]",
+    "[Elegir un género clásico pero aplicar un tono opuesto]"
 ]
 
 ESTRUCTURAS_TEMPORALES = [
