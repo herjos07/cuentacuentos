@@ -1,0 +1,25 @@
+---
+title: "El aliento de la penumbra"
+description: "En un instante suspendido donde el movimiento del mundo se detiene, la repentina desaparición de las sombras revela una terrible verdad sobre el supuesto héroe de luz y la criatura que los protegía. Una joven descubre que la oscuridad era el único refugio que los mantenía unidos a la tierra."
+date: "2026-08-20"
+category: "fantasía suave"
+---
+
+MARA
+
+¿Dónde está mi silueta oscura la mancha fiel que pisaba cada mañana sobre los adoquines fríos? Ha desaparecido disuelta como azúcar en caldo hirviente justo ahora que una gota de mi té de manzanilla flota inmóvil a dos milímetros del borde de la taza de barro suspendida como una perla ambarina que se niega a caer mientras el vuelo del gorrión junto al campanario queda petrificado con las alas abiertas de par en par en el aire denso qué silencio tan absoluto qué desamparo sin esa capa de penumbra pegada a mis talones esa compañera cotidiana que nos anclaba al suelo y nos resguardaba del azote ciego del cielo radiante miren la plaza miren la multitud con los rostros desencajados todos paralizados en la mitad de un parpadeo todos contemplando con horror el espacio vacío bajo sus botas donde solía habitar su propia sombra y allá en el centro está él el gran paladín de la armadura solar blandiendo su espadón de fulgor insoportable riéndose con esa sonrisa de orgullo ciego mientras atraviesa el pecho del gran ser de pelaje de hollín creyendo que nos salva de una abominación cuando en verdad nos está desolando nos está dejando desprotegidos bajo una claridad abrasadora que empieza a ampollear nuestra memoria.
+
+
+VALERIUS
+
+Al fin la victoria pura sin mancha la espada de resplandor sagrado penetra el corazón de la bestia de carbón y terciopelo esa mole de mil ojos de ónice que habitaba entre las casas desprendiendo tufos de sombra y manchando el suelo sagrado con sus rastros negros sientan la luz mi gente sientan cómo limpié sus pasos he exterminado las manchas grotescas que arrastrabais pegadas a vuestros pies como cadenas de moho ya no hay penumbra en el mundo solo pulcritud blanca y resplandor eterno pero por qué nadie grita de júbilo por qué los rostros de la multitud congelada muestran pupilas dilatadas por el espanto y no por la devoción por qué miro la gota de sudor paralizada en mi propia mejilla y en su reflejo transparente solo veo terror por qué la monstruosa criatura no gime de rabia ni lanza dentelladas sino que deja caer lágrimas de tinta densa que flotan en el aire en forma de diminutas esferas nocturnas sus ojos gigantescos no me miran con odio me miran con una piedad abrumadora y maternal un perdón sofocante que me quema los huesos más que mi propia luz pura acaso no era un demonio acaso la sombra no era una plaga sino un manto protector que construía para resguardar sus vidas del fuego despiadado del firmamento.
+
+
+EL SER DE PENUMBRA
+
+El frío del metal blanco me atraviesa el esternón rompiendo la rueca invisible dentro de mi pecho donde hilaba cada amanecer el manto oscuro para los frágiles habitantes de la piedra les duele la luz desmedida aunque jamás lo hubieran comprendido sus pieles de pálida leche se abrasarían hasta las cenizas si mi aliento no tejiera esa fina sábana de sombra bajo sus plantas para absolverlos de la quemadura del cielo se rompen mis hilos se deshilachan los nudos que ataban sus almas a la tierra veo las sombras de los niños desprenderse y volatilizarse como vapor de violetas en este espacio inmóvil donde nada avanza ni cae el cazador de capa dorada sonríe con la inocencia atroz de una tormenta que cree ser caricia no sabe que al matarme condena a su pueblo a flotar ligeros y ciegos consumidos por un resplandor sin tregua ni matiz siento mis gotas de sangre oscura flotar estáticas alrededor de su hoja un rosario de cuentas de noche suspendidas en la nada y desde mi agonía inmóvil intento estirar un último hilo de penumbra para envolver al menos los pies descalzos de la muchacha de la taza de té.
+
+
+MARA
+
+El hilo negro flota hacia mí una hebra casi invisible de oscuridad compasiva que rasga la inmovilidad de este instante suspendido lo veo con una claridad espantosa el supuesto héroe es la verdadera amenaza el fuego desenfrenado que seca los campos mientras que el monstruo de felpa oscura era nuestra cuna el refugio que nos permitía descansar la mirada mi gota de té sigue allí sin tocar la loza desafiando la gravedad en esta pausa eterna y comprendo que si la penumbra no regresa a nuestros pasos nos volveremos ceniza evaporada bajo la tiranía del mediodía absoluto extiendo mi pensamiento hacia la hebra que el ser agonizante me ofrece me agarro a esa diminuta mancha nocturna con el espíritu entero aceptando mi propia sombra abrazando la oscuridad suave que nos hace humanos y terrenales si el caballero trae la ceguera del resplandor yo seré la guardiana de la noche pequeña entrelazando mis dedos mentales con la sangre de tinta del monstruo para que la sombra vuelva a nacer bajo nuestros pies y podamos sostener el mundo una vez más.
