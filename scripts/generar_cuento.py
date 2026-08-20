@@ -51,7 +51,7 @@ def generar_y_guardar_cuento():
     GENEROS = [
         "fantasía suave", "misterio ligero", "realismo mágico", 
         "aventura cotidiana", "ciencia ficción cercana", "cuento reflexivo/humano",
-        "misterio y suspenso", "terror y paranormal", "drama y romance","méxico"
+        "misterio y suspenso", "terror y paranormal", "drama y romance" ,"méxico"
     ]
 
     tema_hoy = random.choice(TEMAS)
