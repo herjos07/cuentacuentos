@@ -4,9 +4,9 @@ const cuentosCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    description: z.string(),
     date: z.union([z.string(), z.date()]),
     category: z.string(),
-    summary: z.string().optional(),
   }),
 });
 
