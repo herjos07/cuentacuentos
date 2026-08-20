@@ -58,13 +58,6 @@ VOCES_NARRATIVAS = [
     "omnisciente cínico: una voz externa con humor negro que rompe la cuarta pared"
 ]
 
-ESTILOS_DE_PROSA = [
-    "minimalista: oraciones cortas, secas y directas de menos de diez palabras",
-    "prosa poética: enfoque en la atmósfera, texturas, olores y ritmo lento",
-    "formato documental: historia contada vía mensajes de texto, correos y audios",
-    "flujo de conciencia: pensamientos caóticos sin filtros ni pausas tradicionales"
-]
-
 SUBVERSION_DE_TROPOS = [
     "anticlímax: el gran misterio se resuelve de la forma más común y mundana",
     "inversión de roles: el supuesto monstruo es la víctima y el héroe la amenaza",
@@ -76,7 +69,6 @@ tema_hoy = random.choice(TEMAS)
 genero_hoy = random.choice(GENEROS)
 estructuras = random.choice(ESTRUCTURAS_TEMPORALES)
 voces = random.choice(VOCES_NARRATIVAS)
-prosa = random.choice(ESTILOS_DE_PROSA)
 tropos = random.choice(SUBVERSION_DE_TROPOS)
 categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
@@ -89,7 +81,9 @@ print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt = f"""
-Escribe un cuento corto e inspirador.
+Escribe un cuento facil de entender para cualquier público, 
+que la historia haga que el lector se apasione por terminarlo de leer, 
+que desde el principio atrape al lector.
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
