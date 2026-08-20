@@ -7,7 +7,10 @@ const cuentos = await getCollection('cuentos');
 cuentos.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<Layout title="Cuentos Diarios">
+<Layout
+  title="Cuentos Diarios"
+  description="Historias originales generadas día con día: fantasía suave, misterio ligero, realismo mágico y relatos humanos. Un cuento nuevo cada día para leer en minutos."
+>
   <div class="hero-section">
     <h1>📖 Cuentacuentos Diarios</h1>
     <p>Historias originales generadas día con día.</p>
