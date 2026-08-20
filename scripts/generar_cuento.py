@@ -62,7 +62,7 @@ def generar_y_guardar_cuento():
     client = genai.Client(api_key=GEMINI_API_KEY)
 
     prompt = f"""
-Escribe un cuento o historia corta, facil de leer para cualquier público y que te sumerga en la lectura.
+Escribe un cuento o historia corta, fácil de leer para cualquier público y que te sumerja en la lectura.
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
@@ -79,7 +79,7 @@ CUENTO:
 [Escribe aquí el texto completo del cuento dividido en párrafos]
 """
 
-    modelos = ['gemini-2.5-flash', 'gemini-2.5-flash-lite']
+    modelos = ['gemini-3.6-flash', 'gemini-3.5-flash-lite']
     texto_generado = None
 
     for modelo in modelos:
@@ -99,12 +99,13 @@ CUENTO:
     if not texto_generado:
         raise RuntimeError("❌ No se pudo obtener respuesta de Gemini.")
 
-    titulo_match = re.search(r"TITULO:\s*(.*)", texto_generado, re.IGNORECASE)
-    resumen_match = re.search(r"RESUMEN:\s*(.*)", texto_generado, re.IGNORECASE)
-    cuento_match = re.search(r"CUENTO:\s*([\s\S]*)", texto_generado, re.IGNORECASE)
+    # Extracción robusta compatible con formatos de Gemini 3.6
+    titulo_match = re.search(r"(?:TITULO|\*\*TITULO\*\*):\s*(.*)", texto_generado, re.IGNORECASE)
+    resumen_match = re.search(r"(?:RESUMEN|\*\*RESUMEN\*\*):\s*(.*)", texto_generado, re.IGNORECASE)
+    cuento_match = re.search(r"(?:CUENTO|\*\*CUENTO\*\*):\s*([\s\S]*)", texto_generado, re.IGNORECASE)
 
-    titulo = titulo_match.group(1).strip() if titulo_match else "Cuento del Día"
-    resumen = resumen_match.group(1).strip() if resumen_match else "Una historia original para disfrutar hoy."
+    titulo = titulo_match.group(1).strip().replace("*", "") if titulo_match else "Cuento del Día"
+    resumen = resumen_match.group(1).strip().replace("*", "") if resumen_match else "Una historia original para disfrutar hoy."
     contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
 
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
