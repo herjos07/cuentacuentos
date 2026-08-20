@@ -62,7 +62,7 @@ Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
-- Extensión del cuento: entre 350 y 500 palabras.
+- Extensión del cuento: entre 350 y 1000 palabras.
 - Idioma: Español.
 
 Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
