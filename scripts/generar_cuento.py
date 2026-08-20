@@ -23,19 +23,15 @@ if not GEMINI_API_KEY:
 # 2. VARIADORES DE CONTENIDO
 # ---------------------------------------------------------------------------
 TEMAS = [
-    "un secreto familiar guardado en un objeto que se abre por accidente",
-    "un mensaje anónimo que predice un evento minutos antes de que ocurra",
-    "un personaje atrapado en un lugar del que debe salir antes de que se agote el tiempo",
-    "un trato o promesa del pasado que viene a cobrarse en el peor momento",
-    "la desaparición inexplicable de algo cotidiano pero vital para los personajes",
-    "un objeto común que empieza a comportarse de forma físicamente imposible",
-    "un personaje que descubre que la versión oficial de su propia historia es mentira",
-    "dos rivales obligados a cooperar para ocultar un error que arruinaría a ambos",
-    "una oferta irresistible que oculta un precio demasiado alto o una trampa",
-    "[Generar un tema aleatorio basado en un conflicto absurdo o cotidiano]",
-    "[Generar un tema aleatorio basado en un descubrimiento científico o mágico]",
-    "[Generar un tema aleatorio basado en un dilema moral entre dos personajes]",
-    "[Generar un tema aleatorio basado en un viaje o mudanza inesperada]"
+    "un viaje de exploración o descubrimiento de un lugar desconocido",
+    "un misterio ligero en una ciudad pequeña",
+    "una invención o descubrimiento culinario/artesanal peculiar",
+    "la conexión entre una persona y un animal o entorno natural",
+    "un desafío personal, la superación de un miedo o una decisión importante",
+    "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
+    "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
+    "una tradición antigua transmitida a una nueva generación",
+    "un viaje en carretera que cambia los planes de los pasajeros"
 ]
 
 GENEROS = [
@@ -44,46 +40,11 @@ GENEROS = [
     "realismo mágico", 
     "aventura cotidiana", 
     "ciencia ficción cercana", 
-    "cuento reflexivo/humano",
-    "[Combinar dos géneros literarios al azar, por ejemplo: Terror + Comedia]",
-    "[Inventar un subgénero híbrido moderno]",
-    "[Elegir un género clásico pero aplicar un tono opuesto]"
-]
-
-ESTRUCTURAS_TEMPORALES = [
-    "cronología inversa: la historia comienza en el clímax y avanza hacia atrás",
-    "narrativa fragmentada: saltos constantes entre pasado, presente y recuerdos",
-    "tiempo congelado: el relato ocurre en el espacio de un solo segundo expandido",
-    "líneas paralelas: dos eventos simultáneos que se entrelazan párrafo a párrafo"
-]
-
-VOCES_NARRATIVAS = [
-    "segunda persona: el narrador te habla a ti ('tú') para máxima inmersión",
-    "narrador poco confiable: el protagonista miente o percibe la realidad alterada",
-    "perspectiva coral: el punto de vista cambia entre personajes en cada sección",
-    "omnisciente cínico: una voz externa con humor negro que rompe la cuarta pared"
-]
-
-ESTILOS_DE_PROSA = [
-    "minimalista: oraciones cortas, secas y directas de menos de diez palabras",
-    "prosa poética: enfoque en la atmósfera, texturas, olores y ritmo lento",
-    "formato documental: historia contada vía mensajes de texto, correos y audios",
-    "flujo de conciencia: pensamientos caóticos sin filtros ni pausas tradicionales"
-]
-
-SUBVERSION_DE_TROPOS = [
-    "anticlímax: el gran misterio se resuelve de la forma más común y mundana",
-    "inversión de roles: el supuesto monstruo es la víctima y el héroe la amenaza",
-    "final abierto existencial: se resuelve el dilema interno pero no la trama externa",
-    "giro metanarrativo: el lector descubre que forma parte activa del misterio"
+    "cuento reflexivo/humano"
 ]
 
 tema_hoy = random.choice(TEMAS)
 genero_hoy = random.choice(GENEROS)
-estructura_hoy = random.choice(ESTRUCTURAS_TEMPORALES)
-voces_hoy = random.choice(VOCES_NARRATIVAS)
-estilos_hoy = random.choice(ESTILOS_DE_PROSA)
-tropos_hoy = random.choice(SUBVERSION_DE_TROPOS)
 categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
 print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
@@ -100,12 +61,8 @@ Escribe un cuento corto e inspirador.
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
-- ESTRUCTURAS TEMPORALES: {estructura_hoy}
-- Voces narrativas: {voces_hoy}
-- Estilo de prosa: {estilos_hoy}
-- Supervision de tropos: {tropos_hoy}
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
-- Extensión del cuento: hasta 3000 palabras.
+- Extensión del cuento: entre 350 y 500 palabras.
 - Idioma: Español.
 
 Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
@@ -185,72 +142,22 @@ with open(file_path, "w", encoding="utf-8") as f:
 print(f"✅ Archivo guardado correctamente en: {file_path}")
 
 # ---------------------------------------------------------------------------
-# 6. ENVIAR NOTIFICACIÓN A TELEGRAM (CON PAUSA PARA PERMITIR DESPLIEGUE)
+# 6. EXPONER DATOS PARA EL PASO DE PUBLICACIÓN EN REDES (que corre DESPUÉS
+#    de que el sitio ya fue compilado y desplegado, no aquí).
 # ---------------------------------------------------------------------------
-if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    base_url_clean = SITE_BASE_URL.strip().rstrip('/')
-    slug_clean = slug_cuento.strip()
-    
-    url_cuento = f"{base_url_clean}/cuentos/{slug_clean}"
-    
-    print("⏳ Esperando 90 segundos para permitir que el sitio se publique en el servidor...")
-    time.sleep(90)
-    
-    mensaje_telegram = (
-        f"📖 <b>¡Nuevo cuento diario!</b>\n\n"
-        f"📌 <b>{titulo}</b>\n\n"
-        f"📝 {resumen}\n\n"
-        f"🔗 <b>Lee el cuento completo aquí:</b>\n{url_cuento}"
-    )
-    
-    url_api_telegram = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": mensaje_telegram,
-        "parse_mode": "HTML",
-        "link_preview_options": {
-            "is_disabled": False,
-            "url": url_cuento
-        }
-    }
-    
-    print("--- ENVIANDO A TELEGRAM ---")
-    print(f"URL generada: {url_cuento}")
-    try:
-        res_telegram = requests.post(url_api_telegram, json=payload, timeout=10)
-        print(f"Status Code Telegram: {res_telegram.status_code}")
-    except Exception as e:
-        print(f"❌ Error al conectar con Telegram: {e}")
+base_url_clean = SITE_BASE_URL.strip().rstrip('/')
+url_cuento = f"{base_url_clean}/cuentos/{slug_cuento.strip()}"
 
-        # ---------------------------------------------------------------------------
-# PUBLICACIÓN EN FACEBOOK
-# ---------------------------------------------------------------------------
-FACEBOOK_PAGE_ID = os.environ.get("FACEBOOK_PAGE_ID")
-FACEBOOK_PAGE_ACCESS_TOKEN = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
+github_output = os.environ.get("GITHUB_OUTPUT")
+if github_output:
+    def _escapar(valor: str) -> str:
+        # Escapa saltos de línea para que GITHUB_OUTPUT no se rompa
+        return valor.replace("%", "%25").replace("\n", "%0A").replace("\r", "%0D")
 
-if FACEBOOK_PAGE_ID and FACEBOOK_PAGE_ACCESS_TOKEN:
-    url_fb = f"https://graph.facebook.com/v22.0/{FACEBOOK_PAGE_ID}/feed"
-    
-    mensaje_facebook = (
-        f"📖 ¡Nuevo cuento disponible hoy!\n\n"
-        f"✨ {titulo}\n\n"
-        f"{resumen}\n\n"
-        f"Lee la historia completa en nuestro sitio web 👇\n"
-        f"{url_cuento}"
-    )
-    
-    payload_fb = {
-        "message": mensaje_facebook,
-        "link": url_cuento,
-        "access_token": FACEBOOK_PAGE_ACCESS_TOKEN
-    }
-    
-    print("--- ENVIANDO A FACEBOOK ---")
-    try:
-        res_fb = requests.post(url_fb, data=payload_fb, timeout=15)
-        if res_fb.status_code == 200:
-            print("✅ Publicado con éxito en Facebook.")
-        else:
-            print(f"⚠️ Error al publicar en Facebook ({res_fb.status_code}): {res_fb.text}")
-    except Exception as e:
-        print(f"❌ Error al conectar con la API de Facebook: {e}")
+    with open(github_output, "a", encoding="utf-8") as f:
+        f.write(f"titulo={_escapar(titulo)}\n")
+        f.write(f"resumen={_escapar(resumen)}\n")
+        f.write(f"url_cuento={_escapar(url_cuento)}\n")
+        f.write(f"slug={slug_cuento.strip()}\n")
+
+print(f"🔗 URL del cuento (se publicará en redes tras el despliegue): {url_cuento}")
