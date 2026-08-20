@@ -22,16 +22,17 @@ if not GEMINI_API_KEY:
 # ---------------------------------------------------------------------------
 # 2. VARIADORES DE CONTENIDO
 # ---------------------------------------------------------------------------
+
 TEMAS = [
-    "un viaje de exploración o descubrimiento de un lugar desconocido",
-    "un misterio ligero en una ciudad pequeña",
-    "una invención o descubrimiento culinario/artesanal peculiar",
-    "la conexión entre una persona y un animal o entorno natural",
-    "un desafío personal, la superación de un miedo o una decisión importante",
-    "un evento mágico o extraordinario irrumpiendo en un día cotidiano",
-    "un encuentro inesperado entre dos desconocidos con perspectivas opuestas",
-    "una tradición antigua transmitida a una nueva generación",
-    "un viaje en carretera que cambia los planes de los pasajeros"
+    "un secreto familiar guardado en un objeto que se abre por accidente",
+    "un mensaje anónimo que predice un evento minutos antes de que ocurra",
+    "un personaje atrapado en un lugar del que debe salir antes de que se agote el tiempo",
+    "un trato o promesa del pasado que viene a cobrarse en el peor momento",
+    "la desaparición inexplicable de algo cotidiano pero vital para los personajes",
+    "un objeto común que empieza a comportarse de forma físicamente imposible",
+    "un personaje que descubre que la versión oficial de su propia historia es mentira",
+    "dos rivales obligados a cooperar para ocultar un error que arruinaría a ambos",
+    "una oferta irresistible que oculta un precio demasiado alto o una trampa"
 ]
 
 GENEROS = [
@@ -43,8 +44,40 @@ GENEROS = [
     "cuento reflexivo/humano"
 ]
 
+ESTRUCTURAS_TEMPORALES = [
+    "cronología inversa: la historia comienza en el clímax y avanza hacia atrás",
+    "narrativa fragmentada: saltos constantes entre pasado, presente y recuerdos",
+    "tiempo congelado: el relato ocurre en el espacio de un solo segundo expandido",
+    "líneas paralelas: dos eventos simultáneos que se entrelazan párrafo a párrafo"
+]
+
+VOCES_NARRATIVAS = [
+    "segunda persona: el narrador te habla a ti ('tú') para máxima inmersión",
+    "narrador poco confiable: el protagonista miente o percibe la realidad alterada",
+    "perspectiva coral: el punto de vista cambia entre personajes en cada sección",
+    "omnisciente cínico: una voz externa con humor negro que rompe la cuarta pared"
+]
+
+ESTILOS_DE_PROSA = [
+    "minimalista: oraciones cortas, secas y directas de menos de diez palabras",
+    "prosa poética: enfoque en la atmósfera, texturas, olores y ritmo lento",
+    "formato documental: historia contada vía mensajes de texto, correos y audios",
+    "flujo de conciencia: pensamientos caóticos sin filtros ni pausas tradicionales"
+]
+
+SUBVERSION_DE_TROPOS = [
+    "anticlímax: el gran misterio se resuelve de la forma más común y mundana",
+    "inversión de roles: el supuesto monstruo es la víctima y el héroe la amenaza",
+    "final abierto existencial: se resuelve el dilema interno pero no la trama externa",
+    "giro metanarrativo: el lector descubre que forma parte activa del misterio"
+]
+
 tema_hoy = random.choice(TEMAS)
 genero_hoy = random.choice(GENEROS)
+estructuras = random.choice(ESTRUCTURAS_TEMPORALES)
+voces = random.choice(VOCES_NARRATIVAS)
+prosa = random.choice(ESTILOS_DE_PROSA)
+tropo = random.choice(SUBVERSION_DE_TROPOS)
 categoria_hoy = genero_hoy  # Para el esquema obligatorio de Astro
 
 print(f"🎲 Tema seleccionado para hoy: {tema_hoy}")
@@ -61,8 +94,12 @@ Escribe un cuento corto e inspirador.
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
 - Género: {genero_hoy}.
+- Estructuras temporales: {estructuras}.
+- Voces narrativas: {voces}.
+- Estilos de prosa: {prosa}.
+- Subversion de tropos: {tropos}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
-- Extensión del cuento: entre 350 y 500 palabras.
+- Extensión del cuento: entre 450 y 3000 palabras.
 - Idioma: Español.
 
 Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
