@@ -1,87 +1,88 @@
-name: Generar Cuento y Publicar Sitio
+name: Publicar Cuento Diario
 
 on:
   schedule:
-    - cron: '0 12 * * *'
+    # Se ejecuta todos los días a las 15:37 UTC (9:37 AM hora CDMX)
+    - cron: '37 15 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
-  generar-y-desplegar:
+  generar-y-publicar:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
-      - name: Descargar repositorio
+      - name: Checkout del repositorio cuentacuentos
         uses: actions/checkout@v4
 
       - name: Configurar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Instalar dependencias de Python
         run: |
-          pip install requests google-genai python-slugify
+          python -m pip install --upgrade pip
+          pip install google-genai python-slugify requests
 
-      - name: Generar nuevo cuento .md
+      - name: Generar Cuento Diario
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          python scripts/generar_cuento.py --solo-generar
-
-      - name: Guardar el nuevo cuento en GitHub
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "feat: nuevo cuento generado [skip ci]" || exit 0
-          git push origin main
-
-      - name: Configurar Node.js para Astro
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Instalar dependencias de Astro y Compilar Sitio Web
-        run: |
-          npm ci
-          npm run build
-
-      - name: Subir artefactos de GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-      - name: Desplegar sitio web en GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  notificar-redes:
-    needs: generar-y-desplegar
-    runs-on: ubuntu-latest
-    steps:
-      - name: Descargar repositorio (último commit)
-        uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Instalar dependencias
-        run: |
-          pip install requests python-slugify google-genai
-
-      - name: Publicar en Facebook y Telegram
-        env:
-          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
-          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          SITE_BASE_URL: "https://herjos.com/cuentacuentos"
+        run: python scripts/generar_cuento.py
+
+      # --- NUEVO PASO: Guardar el archivo .md en el repo de cuentacuentos ---
+      - name: Commit y Push del cuento diario en cuentacuentos
         run: |
-          python scripts/generar_cuento.py --solo-notificar
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/cuentos/
+          if git diff --staged --quiet; then
+            echo "No hay nuevos cuentos que guardar en el repo."
+          else
+            git commit -m "chore: agregar cuento generado automáticamente [skip ci]"
+            git push origin main
+          fi
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias de Astro
+        run: npm install
+
+      - name: Compilar sitio con Astro
+        run: npm run build
+
+      # --- DESPLIEGUE EN EL REPOSITORIO PRINCIPAL (HerJos) ---
+      - name: Checkout del repositorio principal (HerJos)
+        uses: actions/checkout@v4
+        with:
+          repository: '${{ github.repository_owner }}/HerJos'
+          token: ${{ secrets.GH_PAT }}
+          path: repo-principal
+
+      - name: Copiar archivos compilados a la carpeta /cuentacuentos
+        run: |
+          mkdir -p repo-principal/cuentacuentos
+          rm -rf repo-principal/cuentacuentos/*
+          cp -r dist/* repo-principal/cuentacuentos/
+
+      - name: Commit y Push al repositorio principal
+        run: |
+          cd repo-principal
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cuentacuentos/
+          if git diff --staged --quiet; then
+            echo "No hay cambios para subir."
+          else
+            git commit -m "update: nuevo cuento publicado en /cuentacuentos [skip ci]"
+            git push origin main
+          fi
