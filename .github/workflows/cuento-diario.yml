@@ -26,17 +26,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-genai python-slugify requests
 
+      # --- 1. Generar únicamente el cuento (.md) sin notificar aún ---
       - name: Generar Cuento Diario
+        id: generar
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
-          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
-          SITE_BASE_URL: "https://herjos.com/cuentacuentos"
-        run: python scripts/generar_cuento.py
+        run: |
+          python scripts/generar_cuento.py --solo-generar
+          
+          # Capturamos la ruta del cuento recién generado
+          ULTIMO_CUENTO=$(ls -t src/content/cuentos/*.md | head -n 1)
+          echo "CUENTO_PATH=$ULTIMO_CUENTO" >> $GITHUB_ENV
 
-      # --- NUEVO PASO: Guardar el archivo .md en el repo de cuentacuentos ---
+      # --- 2. Guardar el archivo .md en el repo cuentacuentos ---
       - name: Commit y Push del cuento diario en cuentacuentos
         run: |
           git config user.name "github-actions[bot]"
@@ -49,6 +51,7 @@ jobs:
             git push origin main
           fi
 
+      # --- 3. Compilar el sitio con Astro ---
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -60,7 +63,7 @@ jobs:
       - name: Compilar sitio con Astro
         run: npm run build
 
-      # --- DESPLIEGUE EN EL REPOSITORIO PRINCIPAL (HerJos) ---
+      # --- 4. Desplegar en el repositorio principal (HerJos) ---
       - name: Checkout del repositorio principal (HerJos)
         uses: actions/checkout@v4
         with:
@@ -86,3 +89,19 @@ jobs:
             git commit -m "update: nuevo cuento publicado en /cuentacuentos [skip ci]"
             git push origin main
           fi
+
+      # --- 5. Esperar 5 minutos para propagación del servidor Web ---
+      - name: Esperar 5 minutos a la publicación web
+        run: sleep 300
+
+      # --- 6. Ejecutar script de publicación en redes sociales ---
+      - name: Publicar en Redes Sociales (Facebook y Telegram)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          SITE_BASE_URL: "https://herjos.com/cuentacuentos"
+        run: |
+          python scripts/publicar_redes.py --archivo "$CUENTO_PATH"
