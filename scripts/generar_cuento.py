@@ -81,9 +81,7 @@ print(f"🎲 Género seleccionado para hoy: {genero_hoy}")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt = f"""
-Escribe un cuento facil de entender para cualquier público, 
-que la historia haga que el lector se apasione por terminarlo de leer, 
-que desde el principio atrape al lector.
+
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
@@ -95,7 +93,20 @@ Instrucciones estrictas:
 - Extensión del cuento: entre 450 y 3000 palabras.
 - Idioma: Español.
 
-Debes devolver la respuesta en el siguiente formato EXACTO sin omitir ninguna etiqueta:
+Actúa como un escritor de narrativa experto en atrapamiento psicológico, ritmo ágil y ganchos narrativos. Tu objetivo es escribir un cuento o historia que sumerja al lector inmediatamente desde la primera oración y mantenga la tensión para que no pueda dejar de leer hasta el final.
+
+Instrucciones de la historia:
+
+Extensión: Entre 400 y 3000 palabras (asegúrate de no quedar por debajo ni superarlo).
+
+Inicio: Debe comenzar en media res (en medio de la acción, un dilema o una revelación impacto) para enganchar al lector desde el primer segundo.
+
+Ritmo y Tensión: Mantén un conflicto claro, revelaciones paulatinas y un ritmo dinámico que sostenga el interés.
+
+Tema: Libres de elegir el género (misterio, ciencia ficción, suspenso, fantasía o vida cotidiana), pero debe centrarse en un secreto oculto, una decisión límite o un giro inesperado al final.
+
+RESTRICCIÓN DE FORMATO OBLIGATORIA:
+Debes responder ÚNICAMENTE utilizando la siguiente estructura exacta, respetando los nombres de las etiquetas y sin agregar introducciones, notas o saludos antes o después del texto:
 
 TITULO: [Escribe aquí un título atractivo sin comillas]
 RESUMEN: [Escribe un breve resumen de máximo 2 oraciones para redes sociales]
