@@ -90,7 +90,6 @@ Instrucciones estrictas:
 - Género: {genero_hoy}.
 - Estructuras temporales: {estructuras}.
 - Voces narrativas: {voces}.
-- Estilos de prosa: {prosa}.
 - Subversion de tropos: {tropos}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
 - Extensión del cuento: entre 450 y 3000 palabras.
