@@ -62,7 +62,7 @@ def generar_y_guardar_cuento():
     client = genai.Client(api_key=GEMINI_API_KEY)
 
     prompt = f"""
-Escribe un cuento o historia corta, fácil de leer para cualquier público y que te sumerja en la lectura.
+Escribe un cuento o historia corta, fácil de leer para cualquier público y que te sumerga en la lectura.
 
 Instrucciones estrictas:
 - Tema obligatorio: {tema_hoy}.
@@ -99,14 +99,28 @@ CUENTO:
     if not texto_generado:
         raise RuntimeError("❌ No se pudo obtener respuesta de Gemini.")
 
-    # Extracción robusta compatible con formatos de Gemini 3.6
-    titulo_match = re.search(r"(?:TITULO|\*\*TITULO\*\*):\s*(.*)", texto_generado, re.IGNORECASE)
-    resumen_match = re.search(r"(?:RESUMEN|\*\*RESUMEN\*\*):\s*(.*)", texto_generado, re.IGNORECASE)
-    cuento_match = re.search(r"(?:CUENTO|\*\*CUENTO\*\*):\s*([\s\S]*)", texto_generado, re.IGNORECASE)
+    # Extracción más flexible de título, resumen y cuento
+    titulo = "Cuento del Día"
+    resumen = "Una historia original para disfrutar hoy."
+    contenido_cuento = texto_generado
 
-    titulo = titulo_match.group(1).strip().replace("*", "") if titulo_match else "Cuento del Día"
-    resumen = resumen_match.group(1).strip().replace("*", "") if resumen_match else "Una historia original para disfrutar hoy."
-    contenido_cuento = cuento_match.group(1).strip() if cuento_match else texto_generado
+    lines = texto_generado.split("\n")
+    cuento_lines = []
+    en_cuento = False
+
+    for line in lines:
+        clean_line = line.strip().replace("**", "").replace("*", "")
+        if re.match(r"^TITULO:", clean_line, re.IGNORECASE):
+            titulo = re.sub(r"^TITULO:\s*", "", clean_line, flags=re.IGNORECASE).strip()
+        elif re.match(r"^RESUMEN:", clean_line, re.IGNORECASE):
+            resumen = re.sub(r"^RESUMEN:\s*", "", clean_line, flags=re.IGNORECASE).strip()
+        elif re.match(r"^CUENTO:", clean_line, re.IGNORECASE):
+            en_cuento = True
+        elif en_cuento:
+            cuento_lines.append(line)
+
+    if cuento_lines:
+        contenido_cuento = "\n".join(cuento_lines).strip()
 
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     slug_titulo = slugify(titulo)
@@ -133,6 +147,8 @@ category: "{genero_hoy}"
         f.write(markdown_content)
 
     print(f"✅ Cuento guardado en: {file_path}")
+    print(f"📌 Título: {titulo}")
+    print(f"📝 Resumen: {resumen}")
 
 
 def notificar_redes_sociales():
@@ -142,8 +158,10 @@ def notificar_redes_sociales():
         print("❌ No se encontraron cuentos para notificar.")
         return
 
-    ultimo_archivo = archivos[-1]
-    file_path = os.path.join(output_dir, ultimo_archivo)
+    # Toma el archivo creado más recientemente por fecha de modificación
+    ultimo_archivo = max([os.path.join(output_dir, f) for f in archivos], key=os.path.getmtime)
+    file_path = ultimo_archivo
+    nombre_archivo = os.path.basename(file_path)
 
     with open(file_path, "r", encoding="utf-8") as f:
         contenido = f.read()
@@ -153,12 +171,14 @@ def notificar_redes_sociales():
 
     titulo = titulo_match.group(1) if titulo_match else "Cuento del Día"
     resumen = resumen_match.group(1) if resumen_match else "¡Descubre nuestro cuento de hoy!"
-    slug_cuento = ultimo_archivo.replace(".md", "")
+    slug_cuento = nombre_archivo.replace(".md", "")
 
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
     url_cuento = f"{base_url_clean}/cuentos/{slug_cuento}"
 
-    print(f"🔗 Notificando con URL: {url_cuento}")
+    print(f"🔗 Notificando cuento: {titulo}")
+    print(f"📝 Con resumen: {resumen}")
+    print(f"🌐 URL: {url_cuento}")
 
     # 1. TELEGRAM
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
