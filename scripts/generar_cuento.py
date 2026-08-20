@@ -45,13 +45,13 @@ def generar_y_guardar_cuento():
         "una tradición antigua transmitida a una nueva generación",
         "un viaje en carretera que cambia los planes de los pasajeros",
         "fantasía y magia", "superación personal", "Secretos familiares",
-        "casas embrujadas", "amor imposible", "méxico"
+        "casas embrujadas", "amor imposible"
     ]
 
     GENEROS = [
         "fantasía suave", "misterio ligero", "realismo mágico", 
         "aventura cotidiana", "ciencia ficción cercana", "cuento reflexivo/humano",
-        "misterio y suspenso", "terror y paranormal", "drama y romance" ,"méxico"
+        "misterio y suspenso", "terror y paranormal", "drama y romance"
     ]
 
     tema_hoy = random.choice(TEMAS)
@@ -121,13 +121,12 @@ CUENTO:
     if cuento_lines:
         contenido_cuento = "\n".join(cuento_lines).strip()
 
-    # Formato de fecha con hora para ordenar cronológicamente
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
-    timestamp_orden = datetime.now().strftime("%Y-%m-%d-%H%M")
-    slug_titulo = slugify(titulo)
+    timestamp_hora = datetime.now().strftime("%H%M")
     
-    # Nombre único con timestamp
-    slug_cuento = f"{timestamp_orden}-{slug_titulo}"
+    # Slug limpio de caracteres especiales
+    slug_titulo_limpio = slugify(titulo, lowercase=True)
+    slug_cuento = f"{fecha_hoy}-{timestamp_hora}-{slug_titulo_limpio}"
 
     output_dir = "src/content/cuentos"
     os.makedirs(output_dir, exist_ok=True)
@@ -161,7 +160,7 @@ def notificar_redes_sociales():
         print("❌ No se encontraron cuentos para notificar.")
         return
 
-    # Al tener timestamp AAAAMMDDHHMM en el nombre, sorted() nos da Garantizado el último creado
+    # Toma el archivo más reciente ordenado alfabéticamente/cronológicamente
     ultimo_archivo = archivos[-1]
     file_path = os.path.join(output_dir, ultimo_archivo)
 
@@ -173,14 +172,16 @@ def notificar_redes_sociales():
 
     titulo = titulo_match.group(1) if titulo_match else "Cuento del Día"
     resumen = resumen_match.group(1) if resumen_match else "¡Descubre nuestro cuento de hoy!"
+    
+    # Nombre exacto del archivo sin .md
     slug_cuento = ultimo_archivo.replace(".md", "")
 
     base_url_clean = SITE_BASE_URL.strip().rstrip('/')
-    url_cuento = f"{base_url_clean}/cuentos/{slug_cuento}"
+    url_cuento = f"{base_url_clean}/cuentos/{slug_cuento}/"
 
     print(f"🔗 Notificando el cuento más reciente: {titulo}")
     print(f"📝 Resumen: {resumen}")
-    print(f"🌐 URL: {url_cuento}")
+    print(f"🌐 URL final: {url_cuento}")
 
     # 1. TELEGRAM
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
