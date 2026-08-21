@@ -33,8 +33,8 @@ if not URL_CUENTO:
 # ---------------------------------------------------------------------------
 # 1. ESPERAR A QUE LA URL ESTÉ REALMENTE EN LÍNEA (evita el 404)
 # ---------------------------------------------------------------------------
-MAX_INTENTOS = 15
-ESPERA_SEGUNDOS = 20  # hasta ~5 minutos en total
+MAX_INTENTOS = 20
+ESPERA_SEGUNDOS = 30  # hasta ~5 minutos en total
 
 print(f"⏳ Verificando que {URL_CUENTO} esté disponible...")
 url_en_linea = False
