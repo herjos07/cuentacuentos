@@ -91,7 +91,7 @@ Instrucciones estrictas:
 - Subversion de tropos: {tropos}.
 - RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
 - Extensión del cuento: Al menos 500 palabras, limite el que sea conveniente pero que no sea muy larga y tienda a ser aburrida.
-- Idioma: Español.
+- Idioma: Español México.
 
 Actúa como un escritor de narrativa experto en atrapamiento psicológico, ritmo ágil y ganchos narrativos. Tu objetivo es escribir un cuento o historia que sumerja al lector inmediatamente desde la primera oración y mantenga la tensión para que no pueda dejar de leer hasta el final.
 
