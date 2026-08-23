@@ -1,0 +1,21 @@
+---
+title: "La factura de la Cuesta de Santa Fe"
+description: "Durante un descontrolado descenso en bicicleta por la calle más inclinada del barrio, una promesa infantil exige pagarse antes de chocar. Tres amigos enfrentan una deuda de honor suspendidos a milímetros del desastre."
+date: "2026-08-23"
+category: "aventura cotidiana"
+---
+
+GAEL
+El manubrio tiembla, petrificado a la mitad de una curva suicida. La rueda delantera flota a tres centímetros del asfalto ardiente de la bajada de Santa Fe. Una gota de sudor permanece inmóvil entre mis pestañas, refractando el brillo del mediodía como un diamante suspendido. A mis espaldas, el peso acumulado de la bicicleta tándem casera empuja con furia implacable, pero la materia ha decidido detenerse. El aire quedó atrapado en mis pulmones. Y justo ahí, pegado a mi oreja izquierda, siento la respiración tibia de Jimena y sus palabras talladas con filo de navaja: «Cobro de deuda, Gael. Suelta el manubrio».
+
+JIMENA
+Veo los nudillos de Gael perdiendo el color rojo para volverse blancos como la cal. Mi mano derecha flota a un milímetro de sus dedos agarrotados sobre el caucho desgastado. La cicatriz en forma de cruz que llevo en la palma me arde, proyectando el recuerdo de aquella tarde de infancia debajo de las láminas del canal, cuando él me robó la autoría del diseño de este armatoste y festejó ante el barrio la victoria que era mía. En aquel entonces, aterrado de que expusiera su trampa ante los demás, Gael firmó con carbón sobre una corcholata aplastada: «El día que estemos a punto de estrellarnos, la última decisión será tuya». Él pensó que aquel juramento se perdería en el olvido. Se equivocó. Nos lanzamos por la cuesta más inclinada de la colonia buscando adrenalina, sin notar la pared de concreto que nos aguardaba con las fauces abiertas. Gael pretende girar hacia la izquierda para amortiguar su propio impacto, lanzándonos a Nico y a mí directo contra los fierros viejos del tiradero. No lo voy a permitir.
+
+NICO
+Desde el asiento trasero, contemplo la escena estática como una pintura al óleo inacabada. Un perro callejero permanece a medio salto junto a la banqueta, con las orejas tiesas atrapadas en el aire. Las partículas de polvo flotan a nuestro alrededor como diminutas limaduras doradas. Conozco de memoria la historia entre ellos dos; yo fui el testigo que estampó su huella con barro sobre aquella corcholata. Gael siempre ha poseído alma de líder fabricado a base de embustes; Jimena guarda una memoria que no perdona ni la más pequeña afrenta. El muro de concreto exhibe un grafiti despintado que alcanzo a leer sin ninguna prisa. Si Gael mantiene el control, mi hombro izquierdo se deshará contra la pared. Si Jimena le arrebata la dirección a mitad del vuelo, la estructura casera se volcará sobre el barranco de matorrales. Ninguna de las dos rutas promete un regreso a salvo.
+
+GAEL
+La cercanía de la mano de Jimena rozando mi piel pesa más que la propia inercia. Viví años aferrado a la idea de mandar: me adueñé de la bicicleta, cobré los aplausos de la cuadra y dirigí cada escape peligroso sin pedir opiniones. Pero mis puños se sienten helados. Negarme a ceder el timón en este trance significaría aceptar que la lealtad que tanto presumo ante mis amigos es una falacia insostenible. La certeza me atraviesa el pecho con la fuerza de un rayo: el pánico de estrellarme contra el concreto no se compara con la podredumbre de mirarme al espejo sabiendo que rompí mi palabra. La cobardía que arrastré desde la niñez se disuelve por completo. Aflojo los dedos uno a uno. Retiro las manos del caucho. Le entrego el control absoluto de mi vida.
+
+JIMENA
+Siento la desaparición de su resistencia. Gael cede. Por primera vez desde que nos conocemos, su orgullo se rinde y paga la cuenta pendiente. Mis dedos se cierran sobre el metal con la firmeza de un candado de hierro. La humillación que guardé durante tanto tiempo desaparece; mi espíritu queda completamente saldado y en paz. Sin embargo, la masa de metal, el impulso ciego y nuestros tres cuerpos continúan flotando en el aire a un suspiro de la pared, suspendidos en un viaje incierto donde la velocidad no perdona y el abismo nos espera con los brazos abiertos.
