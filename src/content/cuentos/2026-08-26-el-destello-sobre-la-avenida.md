@@ -1,0 +1,20 @@
+---
+title: "El destello sobre la avenida"
+description: "Un hombre recibe escalofriantes mensajes anónimos que anticipan tragedias urbanas antes de que ocurran. La aterradora verdad tras estas predicciones oculta un origen absurdamente cotidiano."
+date: "2026-08-26"
+category: "ciencia ficción cercana"
+---
+
+Tú contemplas el estallido de fuego azul que tiñe el asfalto de la avenida Reforma. La fachada de cristal templado de la torre de procesamiento SkyCore acaba de volarse en mil pedazos, lloviendo esquirlas resplandecientes sobre los transeúntes aterrorizados. El aire huele a ozono quemado y a gel sintético de enfriamiento. Sostienes tu terminal móvil con los dedos temblorosos. La pantalla transparente vibra con la notificación cifrada que leíste instantes atrás: «La cubierta norte del edificio colapsará y el gel derretirá la banqueta». Ocurrió tal como el texto lo predijo. Sientes un escalofrío helado recorriéndote la espalda. La idea de que una fuerza invisible, una inteligencia artificial desbocada o una perturbación en la estructura de la realidad te ha elegido como único espectador de la tragedia te llena de pánico.
+
+Poco antes de la explosión, tú estabas parado junto al semáforo de la esquina, paralizado por la duda. La pantalla de tu terminal acababa de encenderse con un mensaje anónimo previo: «El ciclista de la entrega esquivará al camión y estrellará su hielera contra el poste, manchando el suelo de pintura roja». Alzaste la cabeza con la prisa suficiente para presenciar el evento: la bicicleta derrapó, la hielera cayó y la mancha carmesí se extendió por el concreto con una precisión espeluznante. No había forma de adivinar semejante coincidencia. Miraste a tu alrededor buscando una cámara escondida, una antena de transmisión clandestina o el reflejo de una entidad sobrehumana entre la multitud que caminaba sin sospechar nada.
+
+Retrocediendo un poco más, estabas sentado en la barra del café inteligente ubicado en la planta baja de la torre. Bebías un sorbo de té amargo cuando la interfaz de tu dispositivo parpadeó por primera vez con aquel remitente desconocido. La notificación leía: «La cafetera de alta presión soltará una descarga de vapor y la barista tirará la jarra de metal al suelo». Apenas terminaste de procesar las palabras en tu mente, un soplido sordo sacudió la barra y la empleada dio un brinco, dejando caer el recipiente de aluminio con un estruendo metálico. Limpiaste el sudor de tu frente. El mensaje no era una simple coincidencia; era una profecía directa proyectada en tu pantalla. Decidiste salir corriendo del establecimiento, convencido de que estabas atrapado en un experimento secreto de manipulación mental.
+
+Antes de todo eso, estabas en la tranquilidad de tu departamento en la colonia Roma, frente al monitor de tu estación de trabajo. Tu compañero de cuarto, Beto, comía botanas mientras configuraba un pequeño dron casero de plástico barato que acababa de armar con piezas recicladas.
+
+—Oye, hermano —te dijo Beto, limpiándose el queso de los dedos—. Le programé un bot tonto al dron. Tiene un transmisor de radio corriente que manda mensajes de texto automáticos a tu celular cada vez que activo una función con el control remoto o cuando la camarita detecta que voy a chocar contra algo. Voy a salir a probarlo a la calle, a ver si no tiro nada.
+
+Tú ni siquiera le prestaste atención en ese momento porque estabas concentrado en tus líneas de código. Beto salió al pasillo con su control remoto mal calibrado y el dron diminuto volando a tumbos. Fue ese dispositivo defectuoso el que entró a la cafetería para asustar a la barista, el que zumbó cerca del ciclista provocando su caída, y finalmente, el que se metió por la rendija de ventilación de la torre SkyCore, atorándose en las aspas del condensador hasta sobrecalentar la unidad y volar la fachada.
+
+El gran velo del misterio que parecía desafiar las leyes de la física se redujo a eso: tu compañero de cuarto jugando con un juguete de diez dólares y un código de programación lamentable.
