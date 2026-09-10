@@ -37,14 +37,14 @@ TEMAS = [
 ]
 
 GENEROS = [
-    "fantasía suave", 
-    "misterio ligero", 
-    "realismo mágico", 
-    "aventura cotidiana", 
-    "ciencia ficción cercana", 
-    "cuento reflexivo/humano",
-    "historias",
-    "relatos"
+    "Fantasía", 
+    "Misterio", 
+    "Realismo", 
+    "Aventura", 
+    "Ciencia ficción", 
+    "Cuento reflexivo/humano",
+    "Historias",
+    "Relatos"
 ]
 
 ESTRUCTURAS_TEMPORALES = [
@@ -97,17 +97,17 @@ Instrucciones estrictas:
 - Idioma: Español México.
 - Busca imágenes y conceptos frescos.
 
-Actúa como un escritor de narrativa experto en atrapamiento psicológico, ritmo ágil y ganchos narrativos. Tu objetivo es escribir un cuento o historia que sumerja al lector inmediatamente desde la primera oración y mantenga la tensión para que no pueda dejar de leer hasta el final.
+Actúa como un escritor de narrativa experto en atrapamiento psicológico, ritmo ágil y ganchos narrativos. 
+Tu objetivo es escribir un cuento o historia que sumerja al lector inmediatamente desde la primera oración 
+y mantenga la tensión para que no pueda dejar de leer hasta el final.
 
 Instrucciones de la historia:
 
-Extensión: Entre 800 y 5000 palabras (asegúrate de no quedar por debajo ni superarlo).
-
 Inicio: Debe comenzar en media res (en medio de la acción, un dilema o una revelación impacto) para enganchar al lector desde el primer segundo.
 
-Ritmo y Tensión: Mantén un conflicto claro, revelaciones paulatinas y un ritmo dinámico que sostenga el interés.
+Ritmo y Tensión: Mantén un relato claro y un ritmo dinámico que sostenga el interés.
 
-Tema: Libres de elegir el género (misterio, ciencia ficción, suspenso, fantasía o vida cotidiana), pero debe centrarse en un secreto oculto, una decisión límite o un giro inesperado al final.
+Final: Esfuerzate haciendo un final épico.
 
 RESTRICCIÓN DE FORMATO OBLIGATORIA:
 Debes responder ÚNICAMENTE utilizando la siguiente estructura exacta, respetando los nombres de las etiquetas y sin agregar introducciones, notas o saludos antes o después del texto:
