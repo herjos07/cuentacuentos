@@ -32,7 +32,8 @@ TEMAS = [
     "un objeto común que empieza a comportarse de forma físicamente imposible",
     "un personaje que descubre que la versión oficial de su propia historia es mentira",
     "dos rivales obligados a cooperar para ocultar un error que arruinaría a ambos",
-    "una oferta irresistible que oculta un precio demasiado alto o una trampa"
+    "una oferta irresistible que oculta un precio demasiado alto o una trampa",
+    "finanzas"
 ]
 
 GENEROS = [
@@ -41,7 +42,9 @@ GENEROS = [
     "realismo mágico", 
     "aventura cotidiana", 
     "ciencia ficción cercana", 
-    "cuento reflexivo/humano"
+    "cuento reflexivo/humano",
+    "historias",
+    "relatos"
 ]
 
 ESTRUCTURAS_TEMPORALES = [
@@ -89,15 +92,16 @@ Instrucciones estrictas:
 - Estructuras temporales: {estructuras}.
 - Voces narrativas: {voces}.
 - Subversion de tropos: {tropos}.
-- RESTRICCIÓN: EVITA hablar sobre tiempo, relojes, segundos, minutos, arena, pasado o futuro. Busca imágenes y conceptos frescos.
+- RESTRICCIÓN: EVITA hablar sobre tiempo,pinturas, café, relojes, segundos, minutos, arena, pasado o futuro.
 - Extensión del cuento: Al menos 500 palabras, limite el que sea conveniente pero que no sea muy larga y tienda a ser aburrida.
 - Idioma: Español México.
+- Busca imágenes y conceptos frescos.
 
 Actúa como un escritor de narrativa experto en atrapamiento psicológico, ritmo ágil y ganchos narrativos. Tu objetivo es escribir un cuento o historia que sumerja al lector inmediatamente desde la primera oración y mantenga la tensión para que no pueda dejar de leer hasta el final.
 
 Instrucciones de la historia:
 
-Extensión: Entre 400 y 3000 palabras (asegúrate de no quedar por debajo ni superarlo).
+Extensión: Entre 800 y 5000 palabras (asegúrate de no quedar por debajo ni superarlo).
 
 Inicio: Debe comenzar en media res (en medio de la acción, un dilema o una revelación impacto) para enganchar al lector desde el primer segundo.
 
