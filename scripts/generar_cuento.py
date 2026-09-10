@@ -24,16 +24,16 @@ if not GEMINI_API_KEY:
 # ---------------------------------------------------------------------------
 
 TEMAS = [
-    "un secreto familiar guardado en un objeto que se abre por accidente",
     "un mensaje anónimo que predice un evento minutos antes de que ocurra",
-    "un personaje atrapado en un lugar del que debe salir antes de que se agote el tiempo",
     "un trato o promesa del pasado que viene a cobrarse en el peor momento",
     "la desaparición inexplicable de algo cotidiano pero vital para los personajes",
-    "un objeto común que empieza a comportarse de forma físicamente imposible",
     "un personaje que descubre que la versión oficial de su propia historia es mentira",
-    "dos rivales obligados a cooperar para ocultar un error que arruinaría a ambos",
     "una oferta irresistible que oculta un precio demasiado alto o una trampa",
-    "finanzas"
+    "finanzas",
+    "terror",
+    "méxico",
+    "leyendas"
+    
 ]
 
 GENEROS = [
