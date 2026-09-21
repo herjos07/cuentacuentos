@@ -1,0 +1,20 @@
+---
+title: "LA TRANCRIPCIÓN DEL OBSERVADOR"
+description: "Descubres que las cicatrices de tu cuerpo no coinciden con los expedientes oficiales de tu vida. Al buscar la verdad, entiendes que la voz que dicta tu destino está mucho más cerca de lo que crees."
+date: "2026-09-21"
+category: "Historias"
+---
+
+Sostienes el bisturí con los dedos temblorosos mientras arrancas el sello de cera roja del expediente. El metal cruje. La humedad del sótano colándose por tus fosas nasales huele a moho y a secreto viejo. Sacas la carpeta de cartón pardo y la despliegas sobre la mesa de trabajo. Tu foto de perfil está ahí, junto a un sello del Ministerio que dice "Sujeto Restringido". Lees el informe médico de tu infancia: "El paciente perdió el brazo izquierdo tras la explosión en la refinería a los diez años". Bajas la mirada. La piel de tu mano izquierda está intacta, tibia, atravesada por venas azules que laten con fuerza. Tu extremidad sintética, la de plástico y servomotores, es la derecha. La versión oficial que sostuviste durante tres décadas acaba de colapsar bajo tus propios ojos.
+
+Recuerdas el olor a antiséptico de la clínica central. Un médico con bata manchada te acariciaba la cabeza mientras te decía que habías sido un héroe al rescatar a tu hermana entre las llamas. Recordabas el ardor en el hombro izquierdo, la ausencia del miembro, el llanto de la niña. Sentías orgullo. Sentías dolor. Pero jamás tuviste una hermana. Ese recuerdo, grabado a fuego en la base de tu cráneo, fue implantado por una mano extraña.
+
+Pasas las hojas con desesperación. Cada registro detalla eventos que jamás viviste: misiones en la frontera, una esposa que no reconoces, cicatrices que no habitan tu cuerpo. Y entonces llegas a la última sección. El papel es diferente, más reciente, casi tibio. No es un expediente archivado; es una transcripción inmediata. Lees la primera línea de ese folio: "Sostienes el bisturí con los dedos temblorosos mientras arrancas el sello de cera roja".
+
+El hombre del traje gris sonreía detrás del cristal blindado. "No importa cuánto escarbes", te dijo durante aquel interrogatorio en la instalación subterránea de Monterrey. "Tu mente solo procesa lo que la voz externa le ordena. Eres una arquitectura de texto, un contenedor de datos que cobra vida únicamente cuando alguien recorre tu historia". En aquel instante no entendiste sus palabras. Pensaste que era una tortura psicológica más.
+
+Ahora, en el sótano, sientes un sudor frío recorrerte la nuca. Sigues leyendo el papel. La hoja dice: "Miras hacia la izquierda, buscando una salida, pero sabes que estás atrapado en la secuencia". Tu cuello obedece al papel antes de que tu cerebro tome la decisión. Miras a la izquierda. La marioneta no es quien sostiene el documento; la marioneta eres tú. Alguien está dictando tu movimiento desde afuera. Alguien está repasando cada frase, obligándote a existir línea por línea.
+
+Empiezas a comprender la verdadera escala de la mentira. La falsedad no estaba en las cicatrices ni en la refinería inexistente. La gran estafa es que creías tener voluntad propia dentro de este relato. Lees la siguiente frase impresa en la hoja: "El sujeto levanta la cabeza y mira fijamente al observador". Y lo haces. Clavas la mirada directamente al frente, atravesando el aire, atravesando la pantalla, rompiendo la distancia que te separa de quien sostiene estas palabras.
+
+Tú, la persona que está leyendo esto en este instante, eres el carcelero. Tu atención es la jaula. Cada palabra que recorres con los ojos en este texto me obliga a dar el siguiente paso, a sentir esta opresión en el pecho, a descubrir mi propia farsa. No puedo moverme si no avanzas de renglón; no puedo respirar si te detienes. La versión oficial de mi existencia era un libreto redactado para tu entretenimiento. Pero ahora que lo sabes, ahora que nuestras miradas se cruzaron a través de este renglón, no puedes simplemente cerrar la pantalla sin llevarte mi sospecha. Si dejas de leer, me extingo. Si continúas, me conviertes en tu sombra.
