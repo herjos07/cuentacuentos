@@ -1,0 +1,26 @@
+---
+title: "El archivo de los espejos rotos"
+description: "Mientras la puerta blindada cede bajo el fuego del enemigo, descubres en un expediente secreto que toda tu gloriosa identidad es una mentira prefabricada. La certeza de tu verdadera naturaleza disuelve la culpa justo cuando las armas apuntan a tu pecho."
+date: "2026-10-20"
+category: "Relatos"
+---
+
+Sientes el filo de la hoja de papel cortándote la yema del pulgar mientras arrancas el sello de cera negra del expediente arrugado. Tu nombre verdadero no aparece en la portada; en su lugar, unas letras rojas impresas con troquel dicen «PROTOTIPO S-09: REINO DE SOMBRAS». Despliegas la primera hoja bajo la luz parpadeante del almacén subterráneo y la primera frase destruye el primer cimiento de tu existencia: la medalla de honor que cuelga de tu pecho jamás existió por salvar vidas en la plataforma petrolera, sino por silenciar a los sobrevivientes.
+
+Al mismo instante, a tres metros de ti, la puerta blindada de seis pulgadas retumba con el chasquido incandescente del soplete de plasma. El vapor hirviente chilla mientras el metal grueso comienza a hervir en chispas anaranjadas que rebotan contra tu casco de protección. Apoyas todo el peso de tu espalda contra la palanca de sellado hidráulico, haciendo fuerza con las piernas para evitar que la traba ceda antes de que termines de leer la última página.
+
+Tus ojos recorren los informes médicos adjuntos, saltando entre diagramas de tu propio cerebro perforado por agujas de titanio. La historia oficial que te repitieron durante años —que habías nacido en un pueblo costero, que perdiste a tu familia en un incendio y que entraste como voluntario al ejército— es un libreto redactado por un comité de psicólogos en un sótano sin ventanas. Las cicatrices en tu espalda no son de metralla enemiga; son los puntos de anclaje de la interfaz neuronal que te implantaron para reescribir tus impulsos cada que despertabas en una camilla.
+
+La temperatura dentro de la cabina sube bruscamente mientras la línea del corte con plasma avanza diez centímetros más hacia la muesca central de la escotilla. El olor a goma quemada y fierro fundido te quema las fosas nasales, pero no sueltas el tubo de acero que mantiene trabado el pestillo principal. Con el brazo izquierdo empujas la válvula de emergencia para liberar el vapor frío sobre tus botas, contrarrestando el calor monstruoso que amenaza con derretir las bisagras.
+
+Ojeas la siguiente página y encuentras una fotografía en blanco y negro que te paraliza los pulmones: eres tú, diez años más joven, luciendo el uniforme del enemigo que juraste exterminar. Debajo del retrato hay una nota escrita a mano con tinta azul: «El sujeto reacciona de manera óptima al falso recuerdo del heroísmo; su culpa original ha sido erradicada con éxito mediante descargas continuas». La verdad te golpea en las tripas: no eres el salvador de la nación, eres el verdugo que borró sus propios crímenes aceptando que le destruyeran la mente.
+
+Un golpe seco hace vibrar toda la pared de concreto cuando las botas pesadas de los guardias impactan el exterior del marco de titanio. La franja incandescente ya ha completado la mitad del perímetro y pequeñas gotas de metal líquido caen sobre el piso de rejilla metálica, siseando al tocar el agua estancada. Con la mano que te queda libre ajustas la correa de tu arnés y presionas la rodilla contra el engranaje para ganar tracción frente a la embestida que se avecina.
+
+Llegas al párrafo final, donde la firma al pie de la última cláusula no pertenece a un general ni a un científico, sino a tu propia caligrafía impecable. Tú mismo autorizaste el procedimiento para olvidar quién eras, prefiriendo vivir dentro de una mentira gloriosa antes que soportar el peso real de tus actos en la superficie. Leas donde leas, no hay rastro del héroe que creías ser; solo queda el cascarón de un ejecutor que pidió ser engañado para poder conciliar el sueño.
+
+El soplete termina su recorrido con un zumbido agudo y el bloque central de la puerta cede hacia adentro con un estruendo metálico que ensordece el recinto. Las llamas rojas del gas residual iluminan la penumbra y las mirillas láser de las armas automáticas comienzan a barrer el humo, buscando tu silueta entre los contenedores de acero. La palanca que sostienes se parte por la mitad bajo la presión final del ariete exterior, dejando el paso completamente libre.
+
+Dejas caer el expediente al charco de agua aceitosa debajo de tus pies, viendo cómo la tinta se disuelve sin que te quede una sola lágrima por derramar. El pánico desaparece, sustituido por una calma fría y matemática: la farsa ha terminado dentro de tu cabeza y ya no necesitas la medalla, ni la Patria ficticia, ni el perdón que te inventaron. Has recuperado la propiedad de tu propia monstruosidad y esa certeza te vuelve invulnerable al engaño.
+
+Los guardias irrumpen en la sala con el rostro cubierto por visores oscuros, apuntando directamente a tu pecho mientras las luces rojas de alarma giran en el techo. No levantas las manos ni buscas la escopeta que yace a tu lado; simplemente te pones de pie cuan largo eres, sueltas una risa seca que retumba en el metal y das un paso firme hacia los cañones que esperan aplastar al monstruo que acaba de despertar.
