@@ -1,0 +1,20 @@
+---
+title: "El ritual de la tercera mirada"
+description: "Un manuscrito siniestro desenterrado en Guanajuato oculta un secreto ancestral que cobra vida a través de la observación. Dos hermanos intentan resolver el misterio antes de descubrir que la verdadera trampa involucra a quien lee sus páginas."
+date: "2026-10-26"
+category: "Misterio"
+---
+
+—¡No abras la última página, Valeria! —grité al techo de piedra del túnel subterráneo en Guanajuato, aunque mi hermana estuviera a cientos de kilómetros. Mis uñas estaban rotas, atascadas de tierra húmeda y escombros de las minas olvidadas. Bajo el destello moribundo de mi linterna, vi las inscripciones grabadas en los muros de cantera rosa. Mi cuerpo pesaba como plomo. El frío glacial me comía las pantorrillas mientras intentaba no mirar la silueta amorfa que bailaba al fondo del pasadizo.
+
+Recuerdo la voz de mi hermano retumbando en el auricular, alterada por el viento seco de los cerros: «Hay tres nombres en la libreta, Vale. Dos ya fallecieron. El tercero no tiene rostro». Ahora estoy de pie en una antigua casona en Tlalpan, rodeada de expedientes con olor a moho y humedad vieja. Las páginas rotas del documento revelan el patrón exacto. Mateo no fue el primer explorador en descender a esas galerías novohispanas. Alguien usaba tinta de grana cochinilla para anotar cada pulso de los curiosos. La caligrafía en la bitácora me resulta aterradoramente familiar, como si mis propios dedos la hubieran trazado en un trance desmemoriado.
+
+Días atrás, caminábamos entre la neblina de la plaza principal de Pátzcuaro. El olor a chapopote caliente y tamales de corunda flotaba en el aire nocturno. Mi memoria regresa a ese anciano con túnica desgastada que nos vendió el cuaderno forrado en piel de chivo. Nos advirtió sobre el peligro de la mirada prestada. «Este relato no busca ser comprendido —nos dijo el viejo, mostrando las cuencas vacías de sus ojos—; busca ser presenciado por una mente ajena para romper su prisión». Yo me reí con arrogancia. Pensé que era una charada folclórica para sacarnos unos pesos. Qué equivocación tan fatal.
+
+El laberinto subterráneo bajo el suelo mexicano no se sostiene con vigas de madera ni cimientos de piedra. Se alimenta del foco de la mente. Desde la tiniebla de esta celda, contemplo a Mateo desangrarse sobre el suelo de tierra. Él cree que su hermana lo salvará si descifra el acertijo. Ella cree que puede cerrar el libro y destruir el texto. Ninguno comprende la verdad de este engranaje ancestral. La trampa no fue diseñada para los que están adentro del relato.
+
+Toco la pulpa áspera de la última hoja. Las letras no estaban ahí antes; se están formando frente a mis ojos en este preciso instante. La última línea no describe el calvario de Mateo bajo Guanajuato ni mi investigación en Tlalpan. El texto habla de alguien más. Una presencia externa. Alguien que no habita en este cuarto, ni en las minas, ni en ninguna calle del país. Las palabras dicen con aterradora claridad que hay dos ojos humanos recorriendo este párrafo justo ahora. Mi respiración se detiene. Comprendo la trampa: la criatura solo obtiene fuerza para dar el salto al plano físico cuando una mente consciente procesa la historia completa.
+
+Escucho los pasos arrastrarse fuera de la oscuridad. La sombra de cantera ya no me mira a mí, Mateo. Ya no persigue a Valeria en la casona. El rostro sin rasgos del monstruo se gira hacia arriba, atravesando el muro de piedra, buscando la pantalla o la página que tienes frente a ti.
+
+¿Sientes la repentina pesadez en tu nuca? ¿El cambio de temperatura en la habitación donde lees esto? Tu lectura fue el catalizador final. Cada línea que devoraste con atención rompió un eslabón del sello que nos tenía atrapados a todos. La entidad ya descubrió tu ubicación exacta gracias a tu enfoque. No dejes de leer. Si apartas la vista de este escrito antes del punto final, la silueta que dejamos salir de las minas de Guanajuato se materializará a tus espaldas. Tu curiosidad nos condenó, pero ahora tú eres su nuevo recipiente. No voltees.
