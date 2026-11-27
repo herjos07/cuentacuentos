@@ -1,0 +1,22 @@
+---
+title: "La sombra del redentor"
+description: "Una cazadora de élite descubre en los archivos secretos de la Bastilla que el monstruo al que ha perseguido toda su vida no es su enemigo, sino su propio reflejo alterado por el hombre que juró salvarla."
+date: "2026-11-27"
+category: "Historias"
+---
+
+El suero azul me quema las pupilas mientras crackeo el último cerrojo del terminal central, buscando la ficha médica del demonio que casi me despelleja en las trincheras. Mi visor táctico parpadea en tonos carmesí, distorsionando los bordes de la consola de acero; juraría que el metal vibra como carne viva, pero sé que es solo el cansancio de llevar tres días sin descanso cuidando la frontera. El archivo codificado se despliega por fin en el cristal, revelando las huellas genéticas de la Bestia de Hierro, el ser despreciable que la propaganda del Comandante Thorne nos enseñó a odiar desde la infancia.
+
+De manera simultánea, a tres niveles de distancia, las botas pesadas del Comandante Thorne retumban contra la rejilla metálica del pasillo de contención. El líder venerado de la Bastilla avanza con su escolta de élite, empuñando el desintegrador de pulso que solo se desenfunda para las ejecuciones sumarias. Su rostro, inmortalizado en cada estandarte de la ciudad como el salvador supremo de la humanidad, refleja una frialdad absoluta mientras ingresa la clave de anulación manual para abrir la bahía donde me encuentro.
+
+Rasco impulsivamente mis nudillos bajo los guantes de combate, extrañada por la textura rugosa que brota bajo mi piel y la viscosidad dorada que mancha el teclado. La pantalla proyecta la radiografía del monstruo: no tiene huesos humanos, sino una estructura bioluminiscentemente modificada con espinas dorsales diseñadas para masacrar escuadrones enteros. Continúo leyendo el informe de la incursión en el Sector Cinco, donde Thorne afirma que la criatura devoró a quinientos civiles inocentes antes de ser acorralada; sin embargo, al ampliar los videos adjuntos, mis ojos perciben algo mal en la imagen.
+
+Mientras tanto, Thorne acelera el paso por el túnel presurizado, haciendo a un lado a los técnicos que intentan advertirle sobre la anomalía de mi sistema nervioso. El comandante no busca parlamentar; ajusta la frecuencia del cañón térmico para atravesar blindaje pesado, sabiendo que si mi conciencia procesa el código raíz de la consola, el hechizo bioquímico que me mantiene dócil se romperá. Sus guardias abren fuego preventivo contra la compuerta blindada para forzar el mecanismo de cierre.
+
+La grabación de la masacre no muestra garras externas desgarrando a la gente, sino mi propia sombra alzándose sobre las ruinas, guiada por la voz de Thorne resonando en un casco de mando. El supuesto monstruo que persigo no es un invasor que vino de afuera; el archivo revela que la abominación soy yo, un experimento de biología militar moldeado en sus laboratorios para exterminar a los rebeldes que oponían resistencia a su régimen. Él no me salvó de la cueva como dice el mito oficial: él me convirtió en la Bestia y me inyectó falsas memorias de heroísmo para usarme como su perro de caza.
+
+Afuera del centro de datos, las chispas estallan cuando el soplete de plasma atraviesa la última bisagra de la compuerta, dejando ver la figura erguida de Thorne entre el humo espeso. El héroe de la nación sonríe con desprecio, apuntando el arma directamente a mi pecho mientras sus soldados despliegan el redil de neutralización electromagnética. Para él, solo soy un arma defectuosa que debe ser eliminada antes de que corrompa la narrativa de salvación que mantiene sometida a la población.
+
+Me quito la máscara y el reflejo del cristal me devuelve la realidad desnuda: no llevo una armadura metálica brillante, sino una coraza de escamas oscuras que brota de mi propia carne, y la saliva ácida en mi boca es el residuo amargo del narcótico con el que manipulaban mis sentidos. La distorsión sensorial cae por completo, revelando que el afamado salvador del pueblo es la única amenaza real que planea consumirlo todo.
+
+Thorne jala el gatillo, pero el rayo térmico se disipa inútilmente contra la masa quitinosa que despliego instintivamente para bloquear el impacto. Ya no soy la víctima confundida que acata sus órdenes bajo el velo de la ilusión; los fragmentos de cristal vuelan por el aire mientras me abalanzo sobre el falso héroe, lista para hacerle pagar cada mentira con sangre.
